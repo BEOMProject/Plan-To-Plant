@@ -9,7 +9,7 @@ import com.example.plantoplant.R
 
 class PlantEncyclopediaFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_plant_encyclopedia, container, false)
+        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_plantbook, container, false)
         return view
     }
 }

@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -46,9 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/suit_bold"
+        android:fontFamily="@font/suit_extrabold"
         android:text="TODO"
-        android:textColor="#334D40"
+        android:textColor="#588159"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
@@ -66,19 +67,93 @@
         android:text="뇽뇽이 밥 주기"
         android:textColor="#588159"
         android:textSize="13dp"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="431dp" />
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="396dp" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="20dp"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="3dp"
         app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/check"
-        tools:layout_editor_absoluteY="439dp" />
+        tools:layout_editor_absoluteY="403dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="328dp"
+        android:layout_height="35dp"
+        android:backgroundTint="#7aa971"
+        android:ems="10"
+        android:fontFamily="@font/suit_medium"
+        android:inputType="textPersonName"
+        android:text="빨래 널기"
+        android:textColor="#588159"
+        android:textSize="13dp"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="441dp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="20dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/check"
+        tools:layout_editor_absoluteY="448dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName3"
+        android:layout_width="328dp"
+        android:layout_height="35dp"
+        android:backgroundTint="#7aa971"
+        android:ems="10"
+        android:fontFamily="@font/suit_medium"
+        android:inputType="textPersonName"
+        android:text="과제하기"
+        android:textColor="#588159"
+        android:textSize="13dp"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="483dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="20dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/check"
+        tools:layout_editor_absoluteY="490dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="328dp"
+        android:layout_height="35dp"
+        android:backgroundTint="#7aa971"
+        android:ems="10"
+        android:fontFamily="@font/suit_medium"
+        android:inputType="textPersonName"
+        android:text="오늘의 할일 어쩌구"
+        android:textColor="#588159"
+        android:textSize="13dp"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="527dp" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="20dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/check"
+        tools:layout_editor_absoluteY="534dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
