@@ -3,6 +3,7 @@ package com.example.plantoplant
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import com.example.plantoplant.databinding.ActivityMainBinding
 import com.example.plantoplant.navigation.CalenderFragment
 import com.example.plantoplant.navigation.PlantEncyclopediaFragment
 import com.example.plantoplant.navigation.ProfileFragment
@@ -36,9 +37,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return false
     }
     override fun onCreate(savedInstanceState: Bundle?) {
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // 왜 안뜨지? id bottom_navigation있는데...
-        bottom_navigation.setOnNavigationItemSelectedListener(this)
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 }
