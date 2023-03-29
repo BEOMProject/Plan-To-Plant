@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(binding.root)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // 왜 안뜨지? id bottom_navigation있는데...
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 }
