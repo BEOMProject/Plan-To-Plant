@@ -3,22 +3,22 @@
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_profile"
-        android:enable="true"
+        android:enabled="true"
         android:title="프로필"/>
     <item
         android:id="@+id/action_calender"
         android:icon="@drawable/ic_calender"
-        android:enable="true"
+        android:enabled="true"
         android:title="캘린더"/>
     <item
         android:id="@+id/action_today"
         android:icon="@drawable/ic_today"
-        android:enable="true"
-        android:title="오늘 할일 "/>
+        android:enabled="true"
+        android:title="오늘 할일"/>
     <item
         android:id="@+id/action_plantEncyclopedia"
         android:icon="@drawable/ic_plant_encyclopedia"
-        android:enable="true"
+        android:enabled="true"
         android:title="식물도감"/>
 
 </menu>
