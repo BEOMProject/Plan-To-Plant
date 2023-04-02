@@ -1,16 +1,25 @@
 package com.example.plantoplant
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.example.plantoplant.databinding.ActivityMainBinding
-import com.example.plantoplant.navigation.CalenderFragment
-import com.example.plantoplant.navigation.PlantEncyclopediaFragment
-import com.example.plantoplant.navigation.ProfileFragment
-import com.example.plantoplant.navigation.TodayFragment
+import com.example.plantoplant.navigation.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+private lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        // Bottom Navigation View
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
+        binding.bottomNavigation.selectedItemId = R.id.action_calender
+    }
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId) {
             R.id.action_profile -> {
@@ -21,6 +30,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.action_calender -> {
                 var calenderFragment = CalenderFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main_content, calenderFragment).commit()
+                return true
+            }
+            R.id.action_addplan -> {
+                var AddPlanFragment = AddPlanFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main_content, AddPlanFragment).commit()
                 return true
             }
             R.id.action_today -> {
@@ -35,12 +49,5 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         return false
-    }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 }

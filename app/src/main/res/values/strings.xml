@@ -1,3 +1,41 @@
+<?xml version="1.0"?>
+
 <resources>
-    <string name="app_name">PlanToPlant</string>
+
+    <string name="app_name">Plan To Plant</string>
+
+    <!-- Sign In -->
+
+    <string name="email">Email</string>
+
+    <string name="password">Password</string>
+
+    <string name="signin">로그인</string>
+
+    <string name="signup">회원가입</string>
+
+    <string name="signup_complete">회원가입 성공</string>
+
+    <string name="signin_complete">로그인 성공</string>
+
+    <string name="signout">로그아웃</string>
+
+    <string name="signout_success">로그아웃 성공</string>
+
+    <string name="signout_fail">로그아웃 실패</string>
+
+    <string name="signout_fail_null">이메일과 비밀번호를 입력해주세요</string>
+
+    <!-- Bottom Navigation View -->
+
+    <string name="profile">Profile</string>
+
+    <string name="calender">Calender</string>
+
+    <string name="add">Add</string>
+
+    <string name="today">Today</string>
+
+    <string name="plantbook">Plantbook</string>
+
 </resources>
