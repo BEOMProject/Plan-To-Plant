@@ -28,4 +28,10 @@
     <color name="colorEmailSignIn">#009688</color>
 
     <color name="colorEmailSignInPressed">#004D40</color>
+    <color name="color_1">#DCD6CB</color>
+    <color name="color_2">#B5CB95</color>
+    <color name="color_3">#A1B18A</color>
+    <color name="color_4">#588157</color>
+    <color name="color_5">#385A3F</color>
+    <color name="color_6">#334D40</color>
 </resources>
