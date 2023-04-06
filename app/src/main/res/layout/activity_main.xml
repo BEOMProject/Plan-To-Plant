@@ -53,9 +53,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/colorNavIcon"
-        app:itemTextColor="@color/colorNavIcon"
+        app:itemBackground="@color/white"
+        app:itemIconTint="@color/color_5"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation_main" />
 
 </RelativeLayout>

@@ -9,7 +9,7 @@ import com.example.plantoplant.R
 
 class CalenderFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_calender, container, false)
+        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_calendar, container, false)
         return view
     }
 }

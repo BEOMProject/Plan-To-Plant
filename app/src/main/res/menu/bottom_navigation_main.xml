@@ -7,24 +7,24 @@
         android:title="@string/profile"/>
     <item
         android:id="@+id/action_calender"
-        android:icon="@drawable/ic_calender"
+        android:icon="@drawable/ic_calendar"
         android:enabled="true"
         android:title="@string/calender"/>
 
     <item
         android:id="@+id/action_addplan"
-        android:icon="@drawable/ic_calender"
+        android:icon="@drawable/ic_plus_circle"
         android:enabled="true"
         android:title="@string/add"/>
 
     <item
         android:id="@+id/action_today"
-        android:icon="@drawable/ic_today"
+        android:icon="@drawable/ic_list_check"
         android:enabled="true"
         android:title="@string/today"/>
     <item
         android:id="@+id/action_plantEncyclopedia"
-        android:icon="@drawable/ic_plant_encyclopedia"
+        android:icon="@drawable/ic_journal"
         android:enabled="true"
         android:title="@string/plantbook"/>
 
