@@ -1,37 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#ededed</color>
-
-    <color name="colorPrimaryDark">#e1e1e1</color>
-
-    <color name="colorLightGray">#f1f1f1</color>
-
-    <color name="colorAccent">#FF4081</color>
-
-    <color name="colorWhite">#FFFFFF</color>
-
-    <color name="colorDivision">#e0e0e0</color>
-
-    <color name="colorNavIcon">#1d1d1d</color>
-
-    <color name="colorGoogleSignIn">#d34836</color>
-
-    <color name="colorGoogleSignInPressed">#b02513</color>
-
-    <color name="colorEmailSignIn">#009688</color>
-
-    <color name="colorEmailSignInPressed">#004D40</color>
-    <color name="color_1">#DCD6CB</color>
-    <color name="color_2">#B5CB95</color>
-    <color name="color_3">#A1B18A</color>
-    <color name="color_4">#588157</color>
-    <color name="color_5">#385A3F</color>
-    <color name="color_6">#334D40</color>
+    <color name="brown">#dcd6cb</color>
+    <color name="green1">#b5cb95</color>
+    <color name="green2">#a1b18a</color>
+    <color name="green3">#588157</color>
+    <color name="green4">#385a3f</color>
+    <color name="green5">#334d40</color>
 </resources>

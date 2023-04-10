@@ -30,7 +30,7 @@
 
     <string name="profile">Profile</string>
 
-    <string name="calender">Calender</string>
+    <string name="calendar">Calendar</string>
 
     <string name="add">Add</string>
 
@@ -38,4 +38,18 @@
 
     <string name="plantbook">Plantbook</string>
 
+    <!-- Profile -->
+    <string name="titleProfile">프로필</string>
+    <!-- Calendar -->
+    <string name="titleCalendar">캘린더</string>
+    <!-- addPlan -->
+    <string name="titleAdd">일정 추가</string>
+    <string name="addPlan">일정 추가하기</string>
+    <string name="addOnCalendar">캘린더에 일정 등록</string>
+    <!-- Today -->
+    <string name="todayFlower">꽃밭</string>
+    <string name="todayList">ToDo</string>
+    <!-- Book -->
+    <string name="titlePlant">식물도감</string>
+    <string name="page">페이지</string>
 </resources>
