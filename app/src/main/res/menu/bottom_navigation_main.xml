@@ -9,7 +9,7 @@
         android:id="@+id/action_calender"
         android:icon="@drawable/ic_calendar"
         android:enabled="true"
-        android:title="@string/calender"/>
+        android:title="@string/calendar"/>
 
     <item
         android:id="@+id/action_addplan"
