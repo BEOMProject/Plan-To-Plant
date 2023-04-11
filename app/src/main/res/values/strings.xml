@@ -52,4 +52,6 @@
     <!-- Book -->
     <string name="titlePlant">식물도감</string>
     <string name="page">페이지</string>
+    <string name="todo">ToDo</string>
+    <string name="today_title">꽃밭</string>
 </resources>
