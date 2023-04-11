@@ -42,33 +42,28 @@
         app:srcCompat="@drawable/bg_addplan_plan"
         app:tint="#334d40" />
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="20dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:srcCompat="@drawable/ic_calendar_week"
-        app:tint="#ffffff" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBox_pluscalendar"
         android:layout_width="168dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:buttonTint="#334D40"
         android:fontFamily="@font/suit_medium"
+<<<<<<< Updated upstream
         android:text="캘린더에 일정 등록"
         android:textColor="@color/color_6"
+=======
+        android:text="@string/addOnCalendar"
+        android:textColor="@color/green5"
+>>>>>>> Stashed changes
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/edit_write_plan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#d7e5d4"
@@ -77,8 +72,13 @@
         android:hint="일정 추가하기"
         android:inputType="textPersonName"
         android:textAlignment="center"
+<<<<<<< Updated upstream
         android:textColor="@color/color_6"
         android:textColorHint="#334D40"
+=======
+        android:textColor="@color/green4"
+        android:textColorHint="@color/green5"
+>>>>>>> Stashed changes
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -86,19 +86,49 @@
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="120dp"
-        android:layout_height="44dp"
+        android:id="@+id/action_addplan"
+        android:layout_width="170dp"
+        android:layout_height="45dp"
         android:layout_marginTop="208dp"
-        android:backgroundTint="#d7e5d4"
+        android:backgroundTint="@color/green0"
         android:fontFamily="@font/suit_semibold"
         android:text="일정 추가하기"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+<<<<<<< Updated upstream
         android:textColor="@color/color_5"
         android:inputType="textNoSuggestions"
+=======
+        android:textColor="@color/green5"
+>>>>>>> Stashed changes
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_pluscalendar" />
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="279dp"
+        android:layout_height="135dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="@+id/imageView9"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        app:layout_constraintVertical_bias="0.505" />
+
+    <ImageButton
+        android:id="@+id/select_time"
+        android:layout_width="33dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/white"
+        android:onClick="onBtnClicked"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toStartOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        app:srcCompat="@drawable/ic_calendar_week"
+        app:tint="@color/green5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

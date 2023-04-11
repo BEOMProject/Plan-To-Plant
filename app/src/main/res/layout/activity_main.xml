@@ -47,7 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/white"
+<<<<<<< Updated upstream
         app:itemIconTint="@color/color_5"
+=======
+        app:itemIconTint="@color/green5"
+>>>>>>> Stashed changes
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation_main" />
 

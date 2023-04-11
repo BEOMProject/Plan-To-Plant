@@ -27,7 +27,11 @@
         android:layout_width="237dp"
         android:layout_height="50dp"
         android:layout_marginBottom="12dp"
+<<<<<<< Updated upstream
         android:backgroundTint="@color/color_5"
+=======
+        android:backgroundTint="@color/green4"
+>>>>>>> Stashed changes
         android:fontFamily="@font/suit_medium"
         android:text="@string/signin"
         android:textStyle="normal"
@@ -40,7 +44,11 @@
         android:layout_width="237dp"
         android:layout_height="50dp"
         android:layout_marginBottom="112dp"
+<<<<<<< Updated upstream
         android:backgroundTint="@color/color_5"
+=======
+        android:backgroundTint="@color/green4"
+>>>>>>> Stashed changes
         android:fontFamily="@font/suit_medium"
         android:text="@string/signup"
         android:textStyle="normal"
@@ -53,13 +61,18 @@
         android:layout_width="237dp"
         android:layout_height="50dp"
         android:layout_marginTop="144dp"
-        android:backgroundTint="#588159"
+        android:backgroundTint="@color/green4"
         android:ems="10"
         android:fontFamily="@font/suit_regular"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
+<<<<<<< Updated upstream
         android:textColor="@color/color_5"
         android:textColorHint="@color/color_5"
+=======
+        android:textColor="@color/green4"
+        android:textColorHint="@color/green4"
+>>>>>>> Stashed changes
         android:textSize="14sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,13 +85,18 @@
         android:layout_width="237dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#588159"
+        android:backgroundTint="@color/green4"
         android:ems="10"
         android:fontFamily="@font/suit_regular"
         android:hint="@string/password"
         android:inputType="textPassword"
+<<<<<<< Updated upstream
         android:textColor="@color/color_5"
         android:textColorHint="@color/color_5"
+=======
+        android:textColor="@color/green4"
+        android:textColorHint="@color/green4"
+>>>>>>> Stashed changes
         android:textSize="14sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"

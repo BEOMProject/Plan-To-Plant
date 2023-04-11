@@ -15,7 +15,11 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/suit_semibold"
         android:text="꽃밭"
+<<<<<<< Updated upstream
         android:textColor="@color/color_5"
+=======
+        android:textColor="@color/green5"
+>>>>>>> Stashed changes
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +42,11 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/suit_medium"
         android:text="ToDo"
+<<<<<<< Updated upstream
         android:textColor="@color/color_5"
+=======
+        android:textColor="@color/green4"
+>>>>>>> Stashed changes
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
@@ -71,7 +79,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="4.19"
+<<<<<<< Updated upstream
         android:textColor="@color/color_5"
+=======
+        android:textColor="@color/green4"
+>>>>>>> Stashed changes
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toStartOf="@+id/textView8"
         app:layout_constraintHorizontal_bias="0.307"
@@ -83,7 +95,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_medium"
         android:text="청소하기"
+<<<<<<< Updated upstream
         android:textColor="@color/color_5"
+=======
+        android:textColor="@color/green4"
+>>>>>>> Stashed changes
         app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.311"
