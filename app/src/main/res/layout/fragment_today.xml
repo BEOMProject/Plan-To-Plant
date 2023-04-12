@@ -16,13 +16,13 @@
         android:fontFamily="@font/suit_semibold"
         android:text="@string/today_title"
         android:textColor="@color/green4"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="103dp"
         android:layout_marginTop="124dp"
         app:layout_constraintEnd_toEndOf="parent"
