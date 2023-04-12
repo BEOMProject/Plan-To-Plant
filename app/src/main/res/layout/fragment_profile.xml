@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/suit_semibold"
         android:text="@string/titleProfile"
-        android:textColor="@color/green3"
+        android:textColor="@color/green4"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
