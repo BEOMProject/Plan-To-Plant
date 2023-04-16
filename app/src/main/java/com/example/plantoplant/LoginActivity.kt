@@ -1,58 +1,96 @@
 package com.example.plantoplant
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.plantoplant.databinding.ActivityLoginBinding
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
+import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
-    val editEmail : EditText = findViewById(R.id.editTextTextEmailAddress)
-    val editPassword : EditText = findViewById(R.id.editTextTextPassword)
-    val loginButton : Button = findViewById(R.id.loginButton)
-    var getemail:String = ""
-    var getpassword:String = ""
-
+    lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        /*
+        val signupButton: Button = findViewById(R.id.signupButton)
+        val loginButton: Button = findViewById(R.id.loginButton)
+
+        val editEmail: EditText = findViewById(R.id.editTextTextEmailAddress)
+        val editPassword: EditText = findViewById(R.id.editTextTextPassword)
+
+        // 회원가입 버튼
+        signupButton.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+/*
+        // 로그인 버튼
         loginButton.setOnClickListener {
-            getemail = editEmail.text.toString()
-            getpassword = editPassword.text.toString()
-            var url : String  = "http://localhost:8080/login"
+            val email = editEmail.text.toString()
+            val password = editPassword.text.toString()
 
-            val networkTask = NetworkTask(url, null)
-            networkTask.execute()
+            val loginTask = LoginTask(email, password)
+            loginTask.execute()
         }
          */
     }
 }
 
 /*
-class NetworkTask(url : String, values : ContentValues) : AsyncTask<Void, Int, Boolean>() {
+class LoginTask(private val email: String, private val password: String) : AsyncTask<Void, Void, String>() {
+    /*
     override fun onPreExecute() {
         super.onPreExecute()
     }
+     */
 
-    override fun doInBackground(vararg p0: Void?): Boolean {
-        TODO("Not yet implemented")
+    override fun doInBackground(vararg p0: Void?): String {
+        val url = URL("http://localhost:8080/login")
+        val conn = url.openConnection() as HttpURLConnection
+        conn.requestMethod = "POST"
+        conn.doInput = true
+        conn.doOutput = true
+
+        val postData = "email=$email + password=$password"
+
+        val writer = OutputStreamWriter(conn.outputStream)
+        writer.write(postData)
+        writer.flush()
+
+        val reader = BufferedReader(InputStreamReader(conn.inputStream))
+        val response = StringBuffer()
+        var line: String?
+        while (reader.readLine().also {line = it} != null) {
+            response.append(line)
+        }
+        reader.close()
+
+        return response.toString()
     }
-
+    /*
     override fun onProgressUpdate(vararg values: Int?) {
         super.onProgressUpdate(*values)
     }
+     */
 
-    override fun onPostExecute(result: Boolean?) {
+    override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
     }
-
+    /*
     override fun onCancelled(result: Boolean?) {
         super.onCancelled(result)
     }
+     */
 
 }
  */
