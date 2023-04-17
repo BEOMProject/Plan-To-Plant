@@ -32,12 +32,12 @@
         android:text="@string/signin"
         android:textColor="@color/white"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/signupButton"
+        app:layout_constraintBottom_toTopOf="@+id/gotoSignupButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/signupButton"
+        android:id="@+id/gotoSignupButton"
         android:layout_width="237dp"
         android:layout_height="50dp"
         android:layout_marginBottom="112dp"

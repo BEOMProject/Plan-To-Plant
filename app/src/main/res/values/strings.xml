@@ -6,9 +6,13 @@
 
     <!-- Sign In -->
 
-    <string name="email">Email</string>
+    <string name="nickname">닉네임</string>
 
-    <string name="password">Password</string>
+    <string name="email">이메일</string>
+
+    <string name="password">비밀번호</string>
+
+    <string name="repassword">비밀번호 재확인</string>
 
     <string name="signin">로그인</string>
 
