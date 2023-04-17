@@ -1,19 +1,11 @@
 package com.example.plantoplant
 
-import android.content.ContentValues
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantoplant.databinding.ActivityLoginBinding
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import java.net.HttpURLConnection
-import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
@@ -22,7 +14,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val signupButton: Button = findViewById(R.id.signupButton)
+        val signupButton: Button = findViewById(R.id.gotoSignupButton)
         val loginButton: Button = findViewById(R.id.loginButton)
 
         val editEmail: EditText = findViewById(R.id.editTextTextEmailAddress)
