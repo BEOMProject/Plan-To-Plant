@@ -7,7 +7,7 @@
     android:background="@drawable/bg" >
 
     <TextView
-        android:id="@+id/addplanTitleTextView"
+        android:id="@+id/addplanTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -20,18 +20,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/addplan_bg2"
         android:layout_width="286dp"
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
+        app:layout_constraintTop_toBottomOf="@+id/addplan_bg1"
         app:srcCompat="@drawable/bg_addplan_plan" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/addplan_bg1"
         android:layout_width="286dp"
         android:layout_height="46dp"
         android:layout_marginTop="136dp"
@@ -43,7 +43,7 @@
         app:tint="#334d40" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxtoregisterCalender"
         android:layout_width="168dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
@@ -54,10 +54,10 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/addplan_bg2" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextToaddplan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green0"
@@ -69,13 +69,13 @@
         android:textColor="@color/green5"
         android:textColorHint="#334D40"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintBottom_toBottomOf="@+id/addplan_bg2"
+        app:layout_constraintEnd_toEndOf="@+id/addplan_bg2"
+        app:layout_constraintStart_toStartOf="@+id/addplan_bg2"
+        app:layout_constraintTop_toTopOf="@+id/addplan_bg2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addplanButton"
         android:layout_width="120dp"
         android:layout_height="44dp"
         android:layout_marginTop="208dp"
@@ -87,30 +87,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="31dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="6dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:srcCompat="@drawable/ic_calendar_week"
-        app:tint="@color/green4" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxtoregisterCalender" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/adddatetextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="날짜 정보 뜨는 칸"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-        app:layout_constraintHorizontal_bias="0.366"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintBottom_toBottomOf="@+id/addplan_bg1"
+        app:layout_constraintEnd_toEndOf="@+id/addplan_bg1"
+        app:layout_constraintStart_toStartOf="@+id/addplan_bg1"
+        app:layout_constraintTop_toTopOf="@+id/addplan_bg1"
+        app:layout_constraintVertical_bias="0.72" />
+
+    <Button
+        android:id="@+id/SelectDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/suit_medium"
+        android:text="날짜 선택하기"
+        app:layout_constraintBottom_toTopOf="@+id/addplan_bg1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

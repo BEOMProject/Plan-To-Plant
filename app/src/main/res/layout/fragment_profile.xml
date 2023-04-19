@@ -6,7 +6,7 @@
     android:background="@drawable/bg">
 
     <TextView
-        android:id="@+id/plantbookTitleTextView"
+        android:id="@+id/plantbookTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
