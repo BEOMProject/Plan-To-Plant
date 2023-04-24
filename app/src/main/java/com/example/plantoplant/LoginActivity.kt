@@ -1,31 +1,37 @@
 package com.example.plantoplant
 
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantoplant.databinding.ActivityLoginBinding
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
+import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val signupButton: Button = findViewById(R.id.gotoSignupButton)
-        val loginButton: Button = findViewById(R.id.loginButton)
-
         val editEmail: EditText = findViewById(R.id.editTextTextEmailAddress)
         val editPassword: EditText = findViewById(R.id.editTextTextPassword)
+        val loginButton: Button = findViewById(R.id.loginButton)
+        val signupButton: Button = findViewById(R.id.gotoSignupButton)
 
         // 회원가입 버튼
         signupButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-/*
+
         // 로그인 버튼
         loginButton.setOnClickListener {
             val email = editEmail.text.toString()
@@ -34,11 +40,9 @@ class LoginActivity : AppCompatActivity() {
             val loginTask = LoginTask(email, password)
             loginTask.execute()
         }
-         */
     }
 }
 
-/*
 class LoginTask(private val email: String, private val password: String) : AsyncTask<Void, Void, String>() {
     /*
     override fun onPreExecute() {
@@ -47,7 +51,7 @@ class LoginTask(private val email: String, private val password: String) : Async
      */
 
     override fun doInBackground(vararg p0: Void?): String {
-        val url = URL("http://localhost:8080/login")
+        val url = URL("http://localhost:8080/user/login")
         val conn = url.openConnection() as HttpURLConnection
         conn.requestMethod = "POST"
         conn.doInput = true
@@ -85,4 +89,3 @@ class LoginTask(private val email: String, private val password: String) : Async
      */
 
 }
- */
