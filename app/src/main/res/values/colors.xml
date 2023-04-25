@@ -10,4 +10,5 @@
     <color name="green3">#588157</color>
     <color name="green4">#385a3f</color>
     <color name="green5">#334d40</color>
+    <color name="errorRed">#FF0000</color>
 </resources>
