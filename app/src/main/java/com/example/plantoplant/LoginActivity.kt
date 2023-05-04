@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-
+/*
         // 로그인 버튼
         loginButton.setOnClickListener {
             val email = editEmail.text.toString()
@@ -39,10 +39,15 @@ class LoginActivity : AppCompatActivity() {
 
             val loginTask = LoginTask(email, password)
             loginTask.execute()
+
+            // Main으로 이동 : 1일 때 성공, 2, 3일 때 실패
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
+ */
 }
-
+/*
 class LoginTask(private val email: String, private val password: String) : AsyncTask<Void, Void, String>() {
     /*
     override fun onPreExecute() {
@@ -87,5 +92,5 @@ class LoginTask(private val email: String, private val password: String) : Async
         super.onCancelled(result)
     }
      */
-
+*/
 }
