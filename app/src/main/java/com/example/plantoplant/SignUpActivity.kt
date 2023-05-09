@@ -1,105 +1,104 @@
 package com.example.plantoplant
 
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.example.plantoplant.databinding.ActivitySignupBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
+import java.net.MalformedURLException
 import java.net.URL
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySignupBinding
+    private lateinit var username: String
+    private lateinit var email: String
+    private lateinit var password: String
+    private lateinit var passwordCheck: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_signup)
 
-        val signupOkButton: Button = findViewById(R.id.signupButton)
+        val signUpButton: Button = findViewById(R.id.signupButton)
         val userName: EditText = findViewById(R.id.usernameEdit)
         val emailEdit: EditText = findViewById(R.id.emailEdit)
         val passwordEdit: EditText = findViewById(R.id.passwordEdit)
         val passwordReEdit: EditText = findViewById(R.id.repasswordEdit)
-        val gotoLogin: ImageView = findViewById(R.id.goToLoginButton)
         val mismatchPassword: TextView = findViewById(R.id.mismatchPassword)
+        val goToLogin: ImageView = findViewById(R.id.goToLoginButton)
 
-        // 회원가입 버튼
-        gotoLogin.setOnClickListener {
+        // 로그인 화면으로 이동
+        goToLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        signupOkButton.setOnClickListener {
-            val username = userName.text.toString()
-            val email = emailEdit.text.toString()
-            val password = passwordEdit.text.toString()
-            val passwordCheck = passwordReEdit.text.toString()
+        // 회원가입 버튼 클릭 시
+        signUpButton.setOnClickListener {
+            username = userName.text.toString()
+            email = emailEdit.text.toString()
+            password = passwordEdit.text.toString()
+            passwordCheck = passwordReEdit.text.toString()
 
             if (password == passwordCheck) {
-                binding.mismatchPassword.visibility = View.GONE
-                val signupTask = SignUpTask(username, email, password)
-                signupTask.execute()
-            }
-            else {
-                binding.mismatchPassword.visibility = View.VISIBLE
+                mismatchPassword.visibility = TextView.GONE
+                registerTask()
+            } else {
+                mismatchPassword.visibility = TextView.VISIBLE
             }
         }
     }
-}
 
-class SignUpTask(private val username:String, private val email: String, private val password: String) : AsyncTask<Void, Void, String>() {
-    /*
-    override fun onPreExecute() {
-        super.onPreExecute()
-    }
-     */
+    private fun registerTask() {
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            try {
+                val url = URL("http://121.163.89.228:8080/user/register")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.defaultUseCaches = false
+                conn.doInput = true
+                conn.doOutput = true
+                conn.setRequestMethod("POST")
+                conn.setRequestProperty("Content-Type", "application/json")
+                conn.setRequestProperty("Accept", "application/json")
 
-    override fun doInBackground(vararg p0: Void?): String {
-        val url = URL("http://localhost:8080/user/register")
-        val conn = url.openConnection() as HttpURLConnection
-        conn.requestMethod = "POST"
-        conn.doInput = true
-        conn.doOutput = true
+                val jsonObject = JSONObject()
+                jsonObject.put("id", email)
+                jsonObject.put("password", password)
+                jsonObject.put("nickname", username)
 
-        val postData = "username=$username&email=$email&password=$password"
+                // 서버로 값 전송
+                val outStream = OutputStreamWriter(conn.outputStream, "UTF-8")
+                outStream.write(jsonObject.toString())
+                outStream.flush()
 
-        val writer = OutputStreamWriter(conn.outputStream)
-        writer.write(postData)
-        writer.flush()
+                // 서버에서 결과 받기
+                val inputStream = conn.inputStream
+                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val stringBuilder = StringBuilder()
+                var line: String?
+                while (bufferedReader.readLine().also { line = it } != null) {
+                    stringBuilder.append(line).append("\n")
+                }
+                inputStream.close()
 
-        val reader = BufferedReader(InputStreamReader(conn.inputStream))
-        val response = StringBuffer()
-        var line: String?
-        while (reader.readLine().also {line = it} != null) {
-            response.append(line)
+                val response = stringBuilder.toString()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
-        reader.close()
-
-        return response.toString()
     }
-    /*
-    override fun onProgressUpdate(vararg values: Int?) {
-        super.onProgressUpdate(*values)
-    }
-     */
-
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-    }
-    /*
-    override fun onCancelled(result: Boolean?) {
-        super.onCancelled(result)
-    }
-     */
 }
