@@ -51,6 +51,8 @@ class SignUpActivity : AppCompatActivity() {
             if (password == passwordCheck) {
                 mismatchPassword.visibility = TextView.GONE
                 registerTask()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
             } else {
                 mismatchPassword.visibility = TextView.VISIBLE
             }
@@ -61,7 +63,7 @@ class SignUpActivity : AppCompatActivity() {
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             try {
-                val url = URL("http://121.163.89.228:8080/user/register")
+                val url = URL("http://59.7.106.96:8080/user/register")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.defaultUseCaches = false
                 conn.doInput = true
