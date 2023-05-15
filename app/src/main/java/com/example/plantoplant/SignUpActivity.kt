@@ -61,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             try {
-                val url = URL("http://localhost:8080/user/register")
+                val url = URL("http://223.194.129.201:8080/user/register")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.defaultUseCaches = false
                 conn.doInput = true
