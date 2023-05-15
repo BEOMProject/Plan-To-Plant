@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg" >
+    android:background="@drawable/bg">
 
     <TextView
         android:id="@+id/plantbookTitle"
@@ -19,43 +19,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/LeftArrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left"
+        android:contentDescription="TODO" />
+
     <TextView
         android:id="@+id/pagedisplayLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="65dp"
         android:text="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/pagedisplayRight" />
+        app:layout_constraintStart_toEndOf="@+id/LeftArrow" />
 
     <TextView
         android:id="@+id/pagedisplayRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
         android:text="5"
         app:layout_constraintBottom_toBottomOf="@+id/pagedisplayLeft"
-        tools:layout_editor_absoluteX="229dp" />
-
-    <ImageButton
-        android:id="@+id/LeftArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/pagedisplayLeft"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_arrow_left" />
+        app:layout_constraintEnd_toStartOf="@+id/RightArrow" />
 
     <ImageButton
         android:id="@+id/RightArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toEndOf="@+id/pagedisplayRight"
-        app:srcCompat="@drawable/ic_arrow_right" />
+        app:srcCompat="@drawable/ic_arrow_right"
+        android:contentDescription="TODO" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
