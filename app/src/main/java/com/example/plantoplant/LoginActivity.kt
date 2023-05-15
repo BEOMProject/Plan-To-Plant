@@ -1,22 +1,32 @@
 package com.example.plantoplant
 
+import android.content.ContentValues.TAG
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantoplant.databinding.ActivityLoginBinding
+import kotlinx.coroutines.*
+import org.json.JSONObject
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
+import java.net.MalformedURLException
 import java.net.URL
 
-class LoginActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
 
+class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var email: String
+    private lateinit var password: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -26,71 +36,91 @@ class LoginActivity : AppCompatActivity() {
         val loginButton: Button = findViewById(R.id.loginButton)
         val signupButton: Button = findViewById(R.id.gotoSignupButton)
 
-        // 회원가입 버튼
+        email = editEmail.text.toString()
+        password = editPassword.text.toString()
+
+        // 회원 가입 버튼
         signupButton.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            val intentSignUp = Intent(this, SignUpActivity::class.java)
+            startActivity(intentSignUp)
         }
-/*
+
         // 로그인 버튼
         loginButton.setOnClickListener {
-            val email = editEmail.text.toString()
-            val password = editPassword.text.toString()
+            var loginResult = ""
 
-            val loginTask = LoginTask(email, password)
-            loginTask.execute()
+            email = editEmail.text.toString()
+            password = editPassword.text.toString()
 
-            // Main으로 이동 : 1일 때 성공, 2, 3일 때 실패
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            val job = CoroutineScope(Dispatchers.IO).launch {
+                val response = async { makeLoginRequest(email, password) }
+                loginResult = response.await()
+                Log.d(TAG, "함수에서 받은 결과: $loginResult")
+
+                when (loginResult) {
+                    "1\n" -> {
+                        Intent(this@LoginActivity, MainActivity::class.java).also{
+                            startActivity(it)
+                            finish()
+                        }
+                    }
+                    "2\n", "3\n" -> {
+                        runOnUiThread {
+                            Toast.makeText(this@LoginActivity, "아이디 혹은 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    else -> {
+                        Log.d(TAG, "결과 오류")
+                    }
+                }
+            }
+
+            runBlocking {
+                job.join()
+                job.cancel()
+            }
         }
     }
- */
-}
-/*
-class LoginTask(private val email: String, private val password: String) : AsyncTask<Void, Void, String>() {
-    /*
-    override fun onPreExecute() {
-        super.onPreExecute()
-    }
-     */
 
-    override fun doInBackground(vararg p0: Void?): String {
-        val url = URL("http://localhost:8080/user/login")
-        val conn = url.openConnection() as HttpURLConnection
-        conn.requestMethod = "POST"
-        conn.doInput = true
-        conn.doOutput = true
+    private fun makeLoginRequest(email: String, password:String): String {
+        var response = ""
 
-        val postData = "email=$email + password=$password"
+        try {
+            val url = URL("http://localhost:8080/user/login")
+            val conn = url.openConnection() as HttpURLConnection
+            conn.defaultUseCaches = false
+            conn.doInput = true
+            conn.doOutput = true
+            conn.requestMethod = "POST"
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("Accept", "application/json")
 
-        val writer = OutputStreamWriter(conn.outputStream)
-        writer.write(postData)
-        writer.flush()
+            val jsonObject = JSONObject()
+            jsonObject.put("id", email)
+            jsonObject.put("password", password)
 
-        val reader = BufferedReader(InputStreamReader(conn.inputStream))
-        val response = StringBuffer()
-        var line: String?
-        while (reader.readLine().also {line = it} != null) {
-            response.append(line)
+            // 서버로 값 전송
+            val outStream = OutputStreamWriter(conn.outputStream, "UTF-8")
+            outStream.write(jsonObject.toString())
+            outStream.flush()
+
+            // 서버에서 결과 받기
+            val inputStream = conn.inputStream
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val stringBuilder = StringBuilder()
+            var line: String?
+            while (bufferedReader.readLine().also { line = it } != null) {
+                stringBuilder.append(line).append('\n')
+            }
+
+            response = stringBuilder.toString()
+            Log.d(TAG, "서버에서 받은 결과: $response")
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
-        reader.close()
 
-        return response.toString()
+        return response
     }
-    /*
-    override fun onProgressUpdate(vararg values: Int?) {
-        super.onProgressUpdate(*values)
-    }
-     */
-
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-    }
-    /*
-    override fun onCancelled(result: Boolean?) {
-        super.onCancelled(result)
-    }
-     */
-*/
 }
