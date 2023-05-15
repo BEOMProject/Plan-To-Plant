@@ -9,97 +9,111 @@
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="100dp"
+        android:fontFamily="@font/suit_regular"
         android:text="@string/nickname"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/usernameEdit"
+        app:layout_constraintStart_toStartOf="@+id/usernameEdit" />
 
     <EditText
         android:id="@+id/usernameEdit"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginTop="150dp"
         android:ems="10"
+        android:fontFamily="@font/suit_regular"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/usernameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTextView"
-        tools:ignore="SpeakableTextPresentCheck"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:fontFamily="@font/suit_regular"
         android:text="@string/email"
-        app:layout_constraintStart_toStartOf="@+id/usernameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+        app:layout_constraintBottom_toTopOf="@+id/emailEdit"
+        app:layout_constraintStart_toStartOf="@+id/emailEdit" />
 
     <EditText
         android:id="@+id/emailEdit"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
+        android:fontFamily="@font/suit_regular"
         android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/emailTextView"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextView"
-        tools:ignore="SpeakableTextPresentCheck"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameEdit"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/passwordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:fontFamily="@font/suit_regular"
         android:text="@string/password"
-        app:layout_constraintStart_toStartOf="@+id/emailTextView"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+        app:layout_constraintBottom_toTopOf="@+id/passwordEdit"
+        app:layout_constraintStart_toStartOf="@+id/passwordEdit" />
 
     <EditText
         android:id="@+id/passwordEdit"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
+        android:fontFamily="@font/suit_regular"
         android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/passwordTextView"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
-        tools:ignore="SpeakableTextPresentCheck"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailEdit"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/repasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:fontFamily="@font/suit_regular"
         android:text="@string/repassword"
-        app:layout_constraintStart_toStartOf="@+id/passwordTextView"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
+        app:layout_constraintBottom_toTopOf="@+id/repasswordEdit"
+        app:layout_constraintStart_toStartOf="@+id/repasswordEdit" />
 
     <EditText
         android:id="@+id/repasswordEdit"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
+        android:fontFamily="@font/suit_regular"
         android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/repasswordTextView"
-        app:layout_constraintTop_toBottomOf="@+id/repasswordTextView"
-        tools:ignore="SpeakableTextPresentCheck"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEdit"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/green5"
+        android:fontFamily="@font/suit_medium"
         android:text="@string/signup"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repasswordEdit" />
 
     <ImageView
         android:id="@+id/goToLoginButton"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        app:srcCompat="@drawable/ic_x" />
 
     <TextView
         android:id="@+id/mismatchPassword"
@@ -109,19 +123,18 @@
         android:textColor="@color/errorRed"
         android:textSize="10sp"
         android:visibility="gone"
+        android:fontFamily="@font/suit_regular"
         app:layout_constraintStart_toStartOf="@+id/repasswordEdit"
         app:layout_constraintTop_toBottomOf="@+id/repasswordEdit" />
 
     <TextView
         android:id="@+id/text_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginEnd="173dp"
-        android:layout_marginBottom="50dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="1dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/suit_regular"
+        app:layout_constraintStart_toStartOf="@+id/repasswordEdit"
+        app:layout_constraintTop_toBottomOf="@+id/repasswordEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
