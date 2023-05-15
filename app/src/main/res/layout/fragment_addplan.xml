@@ -23,20 +23,21 @@
         android:id="@+id/addplan_bg2"
         android:layout_width="286dp"
         android:layout_height="46dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addplan_bg1"
+        app:layout_constraintTop_toBottomOf="@+id/SelectDate"
         app:srcCompat="@drawable/bg_addplan_plan" />
 
-    <ImageView
-        android:id="@+id/addplan_bg1"
+    <Button
+        android:id="@+id/SelectDate"
         android:layout_width="286dp"
         android:layout_height="46dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="220dp"
+        android:fontFamily="@font/suit_medium"
+        android:text="날짜 선택하기"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_addplan_plan"
@@ -46,15 +47,16 @@
         android:id="@+id/checkBoxtoregisterCalender"
         android:layout_width="168dp"
         android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
         android:buttonTint="#334D40"
         android:fontFamily="@font/suit_medium"
         android:text="@string/addOnCalendar"
         android:textColor="@color/green5"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/addplanButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addplan_bg2" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextToaddplan"
@@ -67,7 +69,7 @@
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColor="@color/green5"
-        android:textColorHint="#334D40"
+        android:textColorHint="#9A385A3F"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/addplan_bg2"
         app:layout_constraintEnd_toEndOf="@+id/addplan_bg2"
@@ -78,39 +80,15 @@
         android:id="@+id/addplanButton"
         android:layout_width="120dp"
         android:layout_height="44dp"
-        android:layout_marginTop="208dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="@color/green0"
         android:fontFamily="@font/suit_semibold"
-        android:text="@string/addPlan"
+        android:text="일정 추가하기"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/green5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxtoregisterCalender" />
-
-    <TextView
-        android:id="@+id/adddatetextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="날짜 정보 뜨는 칸"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/addplan_bg1"
-        app:layout_constraintEnd_toEndOf="@+id/addplan_bg1"
-        app:layout_constraintStart_toStartOf="@+id/addplan_bg1"
-        app:layout_constraintTop_toTopOf="@+id/addplan_bg1"
-        app:layout_constraintVertical_bias="0.72" />
-
-    <Button
-        android:id="@+id/SelectDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/suit_medium"
-        android:text="날짜 선택하기"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/addplan_bg1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
