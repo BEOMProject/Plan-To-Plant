@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.plantoplant"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -32,6 +32,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    buildFeatures {
+        dataBinding true
     }
 }
 
