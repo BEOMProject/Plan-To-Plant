@@ -50,7 +50,7 @@
     <string name="titleCalendar">캘린더</string>
     <!-- addPlan -->
     <string name="titleAdd">일정 추가</string>
-    <string name="addPlan">일정 추가하기</string>
+    <string name="addPlan">할 일은 무엇인가요?</string>
     <string name="addOnCalendar">캘린더에 일정 등록</string>
     <!-- Today -->
     <string name="todayFlower">꽃밭</string>
