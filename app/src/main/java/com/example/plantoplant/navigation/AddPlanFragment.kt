@@ -17,7 +17,6 @@ class AddPlanFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_addplan, container, false)
-
         btnDatePicker = view.findViewById(R.id.SelectDate)
 
         val myCalendar = Calendar.getInstance()
