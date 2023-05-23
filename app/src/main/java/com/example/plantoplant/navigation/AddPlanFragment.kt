@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.plantoplant.R
 import java.text.SimpleDateFormat
@@ -14,10 +15,14 @@ import java.util.*
 class AddPlanFragment : Fragment() {
 
     private lateinit var btnDatePicker: Button
+    private lateinit var btnAddPlan: Button
+    private lateinit var addPlanTextView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_addplan, container, false)
         btnDatePicker = view.findViewById(R.id.SelectDate)
+        btnAddPlan = view.findViewById(R.id.addplanButton)
+        addPlanTextView = view.findViewById(R.id.editTextToaddplan)
 
         val myCalendar = Calendar.getInstance()
 
@@ -37,7 +42,6 @@ class AddPlanFragment : Fragment() {
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-
         return view
     }
 
