@@ -1,13 +1,18 @@
 package com.example.plantoplant.navigation
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentTodayBinding
@@ -28,6 +33,7 @@ import java.time.LocalDate
 class TodayFragment : Fragment() {
     private var _binding: FragmentTodayBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentTodayBinding.inflate(inflater, container, false)
         //var view = LayoutInflater.from(activity).inflate(R.layout.fragment_today, container, false)
@@ -86,5 +92,39 @@ class TodayFragment : Fragment() {
             e.printStackTrace()
         }
         return response
+    }
+
+    fun addText(newText: String) {
+        val textView = TextView(requireContext())
+        textView.text = newText
+
+        textView.setOnClickListener {
+            var isExpanded = false
+            it.postDelayed({
+                if (!isExpanded) {
+                    textView.maxLines = Integer.MAX_VALUE
+                    textView.setTextColor(Color.GRAY)
+                    isExpanded = true
+                } else {
+                    textView.maxLines = 1
+                    textView.setTextColor(Color.BLACK)
+                    isExpanded = false
+                }
+            }, 200) //더블클릭 감지 딜레이 시간
+            if (isExpanded) {
+                addImageView()
+            }
+        }
+
+        binding.addPlanContainer.addView(textView) //linearlayout에 텍스트 추가
+    }
+    private fun addImageView() {
+        val imageCounter = binding.addPlanContainer.childCount - 1
+        if (imageCounter < 5) {
+            val imageView = ImageView(requireContext())
+            imageView.setImageResource(R.drawable.image1) // 이미지 리소스 설정
+            imageView.visibility = View.VISIBLE
+            binding.addPlanContainer.addView(imageView)
+        }
     }
 }
