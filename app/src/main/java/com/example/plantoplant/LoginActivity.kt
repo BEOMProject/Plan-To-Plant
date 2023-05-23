@@ -26,10 +26,16 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var email: String
     private lateinit var password: String
 
+    private var backPressedTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        var registerResult = intent.getStringExtra("registerResult")
+        if (registerResult == "true") Toast.makeText(this@LoginActivity, "회원 가입 성공" +
+                "", Toast.LENGTH_SHORT).show()
 
         val editEmail: EditText = findViewById(R.id.editTextTextEmailAddress)
         val editPassword: EditText = findViewById(R.id.editTextTextPassword)
@@ -87,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         var response = ""
 
         try {
-            val url = URL("http://localhost:8080/user/login")
+            val url = URL("http://223.194.130.163:8080/user/login")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true
@@ -123,5 +129,18 @@ class LoginActivity : AppCompatActivity() {
         }
 
         return response
+    }
+
+    override fun onBackPressed() {
+        if(System.currentTimeMillis() - backPressedTime >= 2000) {
+            backPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(System.currentTimeMillis() - backPressedTime < 2000) {
+            finish()
+        }
+        println("뒤로가기 버튼 클릭")
+        super.onBackPressed()
     }
 }

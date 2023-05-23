@@ -37,6 +37,7 @@
         android:fontFamily="@font/suit_medium"
         android:text="날짜 선택하기"
         android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

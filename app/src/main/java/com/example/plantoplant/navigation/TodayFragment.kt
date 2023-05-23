@@ -1,33 +1,27 @@
 package com.example.plantoplant.navigation
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentTodayBinding
 import kotlinx.coroutines.*
 import org.json.JSONArray
-import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStreamReader
-import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-import java.time.LocalDate
+
 
 class TodayFragment : Fragment() {
     private var _binding: FragmentTodayBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentTodayBinding.inflate(inflater, container, false)
         //var view = LayoutInflater.from(activity).inflate(R.layout.fragment_today, container, false)
@@ -62,7 +56,7 @@ class TodayFragment : Fragment() {
         var response = ""
 
         try {
-            val url = URL("http://localhost:8080/todos/all?user_id=$user_id")
+            val url = URL("http://223.194.130.163:8080/todos/all?user_id=$user_id")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.requestMethod = "GET"
@@ -87,4 +81,5 @@ class TodayFragment : Fragment() {
         }
         return response
     }
+
 }
