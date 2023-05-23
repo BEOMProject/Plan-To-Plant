@@ -64,23 +64,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         if(System.currentTimeMillis() - backPressedTime >= 2000) {
             backPressedTime = System.currentTimeMillis()
             Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
-        } else {
+            return
+        }
+        if(System.currentTimeMillis() - backPressedTime < 2000) {
             finish()
         }
         println("뒤로가기 버튼 클릭")
         super.onBackPressed()
     }
-    /*private var doubleBackToExitPressedOnce = false
-override fun onBackPressed() {
-	if (doubleBackToExitPressedOnce) {
-		finishAffinity()
- 		return
-	}
-	doubleBackToExitPressedOnce = true
-	Toast.makeText(this, "뒤로가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
-	Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
-	}
-}
-
-     */
 }
