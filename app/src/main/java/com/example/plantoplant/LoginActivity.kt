@@ -59,10 +59,11 @@ class LoginActivity : AppCompatActivity() {
 
                 when (loginResult) {
                     "1\n" -> {
-                        Intent(this@LoginActivity, MainActivity::class.java).also{
-                            startActivity(it)
-                            finish()
-                        }
+                        val inputTextEmail = editEmail.text.toString()
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        intent.putExtra("email", inputTextEmail)
+                        startActivity(intent)
+                        finish()
                     }
                     "2\n", "3\n" -> {
                         runOnUiThread {
@@ -86,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
         var response = ""
 
         try {
-            val url = URL("http://223.194.129.201:8080/user/login")
+            val url = URL("http://localhost:8080/user/login")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true

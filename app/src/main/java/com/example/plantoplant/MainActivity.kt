@@ -1,7 +1,9 @@
 package com.example.plantoplant
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantoplant.databinding.ActivityMainBinding
 import com.example.plantoplant.navigation.*
@@ -13,8 +15,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
+        //val intent = intent
+        val userId = intent.getStringExtra("email")
+        Toast.makeText(this, "환영합니다 ${userId}님!",
+            Toast.LENGTH_SHORT).show()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Bottom Navigation View
@@ -22,6 +26,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding.bottomNavigation.selectedItemId = R.id.action_calender
     }
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        val uId = intent.getStringExtra("email").toString()
+        val todayFragment = TodayFragment()
+        val bundle = Bundle()
         when(p0.itemId) {
             R.id.action_profile -> {
                 var profileFragment = ProfileFragment()
@@ -39,7 +46,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 return true
             }
             R.id.action_today -> {
-                var todayFragment = TodayFragment()
+                bundle.putString("email", uId)
+                todayFragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.main_content, todayFragment).commit()
                 return true
             }
