@@ -26,6 +26,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var email: String
     private lateinit var password: String
 
+    private var backPressedTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -127,5 +129,18 @@ class LoginActivity : AppCompatActivity() {
         }
 
         return response
+    }
+
+    override fun onBackPressed() {
+        if(System.currentTimeMillis() - backPressedTime >= 2000) {
+            backPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(System.currentTimeMillis() - backPressedTime < 2000) {
+            finish()
+        }
+        println("뒤로가기 버튼 클릭")
+        super.onBackPressed()
     }
 }
