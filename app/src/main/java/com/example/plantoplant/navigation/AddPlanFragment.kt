@@ -22,7 +22,6 @@ class AddPlanFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_addplan, container, false)
-
         btnDatePicker = view.findViewById(R.id.SelectDate)
         btnAddPlan = view.findViewById(R.id.addplanButton)
         addPlanTextView = view.findViewById(R.id.editTextToaddplan)
