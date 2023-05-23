@@ -31,6 +31,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var registerResult = intent.getStringExtra("registerResult")
+        if (registerResult == "true") Toast.makeText(this@LoginActivity, "회원 가입 성공" +
+                "", Toast.LENGTH_SHORT).show()
+
         val editEmail: EditText = findViewById(R.id.editTextTextEmailAddress)
         val editPassword: EditText = findViewById(R.id.editTextTextPassword)
         val loginButton: Button = findViewById(R.id.loginButton)
@@ -87,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
         var response = ""
 
         try {
-            val url = URL("http://localhost:8080/user/login")
+            val url = URL("http://223.194.130.163:8080/user/login")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true

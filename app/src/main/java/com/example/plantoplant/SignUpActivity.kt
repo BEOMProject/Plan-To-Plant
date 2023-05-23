@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
@@ -47,58 +44,81 @@ class SignUpActivity : AppCompatActivity() {
             email = emailEdit.text.toString()
             password = passwordEdit.text.toString()
             passwordCheck = passwordReEdit.text.toString()
+            var registerResult = ""
 
             if (password == passwordCheck) {
                 mismatchPassword.visibility = TextView.GONE
-                registerTask()
+
+                val job = CoroutineScope(Dispatchers.IO).launch {
+                    val response = async { registerRequest() }
+                    registerResult = response.await()
+
+                    when (registerResult) {
+                        "1\n" -> {
+                            val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                            intent.putExtra("registerResult", "true")
+                            startActivity(intent)
+                            finish()
+                        }
+                        "2\n" -> {
+                            runOnUiThread {
+                                Toast.makeText(this@SignUpActivity, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+
+                runBlocking {
+                    job.join()
+                    job.cancel()
+                }
+
             } else {
                 mismatchPassword.visibility = TextView.VISIBLE
             }
         }
     }
 
-    private fun registerTask() {
-        val scope = CoroutineScope(Dispatchers.IO)
-        scope.launch {
-            try {
-                val url = URL("http://223.194.129.201:8080/user/register")
-                val conn = url.openConnection() as HttpURLConnection
-                conn.defaultUseCaches = false
-                conn.doInput = true
-                conn.doOutput = true
-                conn.setRequestMethod("POST")
-                conn.setRequestProperty("Content-Type", "application/json")
-                conn.setRequestProperty("Accept", "application/json")
+    private fun registerRequest():String {
+        var response = ""
 
-                val jsonObject = JSONObject()
-                jsonObject.put("id", email)
-                jsonObject.put("password", password)
-                jsonObject.put("nickname", username)
+        try {
+            val url = URL("http://223.194.130.163:8080/user/register")
+            val conn = url.openConnection() as HttpURLConnection
+            conn.defaultUseCaches = false
+            conn.doInput = true
+            conn.doOutput = true
+            conn.requestMethod = "POST"
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("Accept", "application/json")
 
-                // 서버로 값 전송
-                val outStream = OutputStreamWriter(conn.outputStream, "UTF-8")
-                outStream.write(jsonObject.toString())
-                outStream.flush()
+            val jsonObject = JSONObject()
+            jsonObject.put("id", email)
+            jsonObject.put("password", password)
+            jsonObject.put("nickname", username)
 
-                // 서버에서 결과 받기
-                val inputStream = conn.inputStream
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val stringBuilder = StringBuilder()
-                var line: String?
-                while (bufferedReader.readLine().also { line = it } != null) {
-                    stringBuilder.append(line).append("\n")
-                }
-                inputStream.close()
+            // 서버로 값 전송
+            val outStream = OutputStreamWriter(conn.outputStream, "UTF-8")
+            outStream.write(jsonObject.toString())
+            outStream.flush()
 
-                val response = stringBuilder.toString()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@SignUpActivity, "회원가입 성공", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: MalformedURLException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
+            // 서버에서 결과 받기
+            val inputStream = conn.inputStream
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val stringBuilder = StringBuilder()
+            var line: String?
+            while (bufferedReader.readLine().also { line = it } != null) {
+                stringBuilder.append(line).append("\n")
             }
+            inputStream.close()
+
+            response = stringBuilder.toString()
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+
+        return response
     }
 }
