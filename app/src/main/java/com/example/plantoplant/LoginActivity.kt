@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         var response = ""
 
         try {
-            val url = URL("http://192.168.163.1:8080/user/login")
+            val url = URL("http://223.194.130.163:8080/user/login")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true

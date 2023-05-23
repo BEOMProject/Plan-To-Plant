@@ -19,7 +19,7 @@ class CalenderFragment : Fragment() {
 
     private lateinit var minusmonth : ImageButton
     private lateinit var plusmonth : ImageButton
-    private lateinit var selectedDate: LocalDate //년월 변수
+    private lateinit var selectedDate: LocalDate //년월   변수
     private lateinit var monthYearText: TextView
     private lateinit var recyclerView: RecyclerView
 

@@ -10,12 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.plantoplant.LoginActivity
 import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentProfileBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONTokener
+import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -29,22 +24,25 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var logoutButton: Button
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        var view =
-            LayoutInflater.from(activity).inflate(R.layout.fragment_profile, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val userId = arguments?.getString("email") ?: ""
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = profileUserName(userId)
-            val jsons = JSONTokener(response).nextValue() as JSONArray
-            withContext(Dispatchers.Main) {
-                for (i in 0 until jsons.length()) {
-                    val userId = jsons.getJSONObject(i).getString("id")
-                }
-            }
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            val response = async { profileUserName(userId) }
+            val userNickname = response.await()
+            print(userNickname)
+
+            binding.userNameText.text = userNickname
+        }
+
+        runBlocking {
+            job.join()
+            job.cancel()
         }
 
         logoutButton = view.findViewById(R.id.logoutButton)
@@ -52,7 +50,6 @@ class ProfileFragment : Fragment() {
             // 로그아웃 처리
             logout()
         }
-        return view
     }
 
     private fun logout() {
@@ -65,7 +62,7 @@ class ProfileFragment : Fragment() {
         var response = ""
 
         try {
-            val url = URL("http://192.168.163.1:8080/users/info?user_id=$user_id")
+            val url = URL("http://223.194.130.163:8080/user/info?uid=$user_id")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.requestMethod = "GET"
@@ -80,12 +77,11 @@ class ProfileFragment : Fragment() {
                 stringBuilder.append(line)
             }
             response = stringBuilder.toString()
-        }
-        catch (e: MalformedURLException){
+        } catch (e: MalformedURLException) {
             e.printStackTrace()
-        } catch (e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
-        } catch(e: FileNotFoundException){
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
         }
         return response
