@@ -1,13 +1,11 @@
 package com.example.plantoplant.navigation
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.plantoplant.R
@@ -44,24 +42,6 @@ class AddPlanFragment : Fragment() {
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-        btnAddPlan.setOnClickListener{
-            val newText = addPlanTextView.text.toString()
-
-            val textToShow = "$selectedDate: $newText"
-            addPlanTextView.text = textToShow
-
-            if (imageCounter < 5) {
-                addPlanImageView.visibility = View.VISIBLE
-                imageCounter++
-            } else {
-                addPlanImageView.visibility = View.GONE
-            }
-        }
-            val AddPlanFragment = parentFragmentManager.findFragmentById(R.id.addPlanContainer) as TodayFragment
-            AddPlanFragment.addText(newText)
-        }
-
-
         return view
     }
 

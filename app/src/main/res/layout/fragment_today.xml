@@ -89,12 +89,6 @@
         app:layout_constraintHorizontal_bias="0.311"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/addPlanContainer"
-        android:layout_width="match_parent"
-        android:layout_height="346dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"></LinearLayout>
 
 
 </LinearLayout>
