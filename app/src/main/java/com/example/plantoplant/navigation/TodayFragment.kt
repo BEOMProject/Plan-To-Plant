@@ -56,7 +56,7 @@ class TodayFragment : Fragment() {
         var response = ""
 
         try {
-            val url = URL("http://223.194.130.163:8080/todos/all?user_id=$user_id")
+            val url = URL("http://125.142.56.47:8080/todos/all?user_id=$user_id")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.requestMethod = "GET"
