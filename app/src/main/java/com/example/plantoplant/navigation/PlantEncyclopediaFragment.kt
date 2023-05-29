@@ -12,4 +12,5 @@ class PlantEncyclopediaFragment : Fragment() {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_plantbook, container, false)
         return view
     }
+
 }

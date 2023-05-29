@@ -25,13 +25,13 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val userId = arguments?.getString("email") ?: ""
+        loadUserName(userId)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val userId = arguments?.getString("email") ?: ""
-        loadUserName(userId)
 
         logoutButton = view.findViewById(R.id.logoutButton)
         logoutButton.setOnClickListener {
@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
         var response = ""
 
         try {
-            val url = URL("http://125.142.56.47:8080/user/info?uid=$userId")
+            val url = URL("http://125.142.0.210:8080/user/info?uid=$userId")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.requestMethod = "GET"

@@ -83,7 +83,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun registerRequest():String {
         var response = ""
         try {
-            val url = URL("http://125.142.56.47:8080/user/register")
+            val url = URL("http://125.142.0.210:8080/user/register")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true
