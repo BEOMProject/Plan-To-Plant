@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.plantoplant.LoginActivity
 import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentProfileBinding
+import com.example.plantoplant.util.ServerCon
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -68,7 +69,8 @@ class ProfileFragment : Fragment() {
         var response = ""
 
         try {
-            val url = URL("http://125.142.0.210:8080/user/info?uid=$userId")
+            val con = ServerCon()
+            val url = URL(con.url + "user/info?uid=$userId")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.requestMethod = "GET"

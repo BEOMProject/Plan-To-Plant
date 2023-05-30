@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.plantoplant.databinding.FragmentTodayBinding
+import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONTokener
@@ -56,7 +57,8 @@ class TodayFragment : Fragment() {
         var response = ""
 
         try {
-            val url = URL("http://125.142.0.210:8080/todos/all?user_id=$user_id")
+            val con = ServerCon()
+            val url = URL(con.url + "todos/all?user_id=$user_id")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.requestMethod = "GET"

@@ -4,12 +4,12 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantoplant.databinding.ActivityLoginBinding
+import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -93,7 +93,8 @@ class LoginActivity : AppCompatActivity() {
         var response = ""
 
         try {
-            val url = URL("http://125.142.0.210:8080/user/login")
+            val con = ServerCon()
+            val url = URL(con.url + "user/login")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true

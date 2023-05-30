@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -83,7 +84,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun registerRequest():String {
         var response = ""
         try {
-            val url = URL("http://125.142.0.210:8080/user/register")
+            val con = ServerCon()
+            val url = URL(con.url + "user/register")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true

@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentProfileBinding
+import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -119,7 +120,8 @@ class AddPlanFragment : Fragment() {
 
     private suspend fun addPlanData() {
         try {
-            val url = URL("http://125.142.0.210:8080/todos/add")
+            val con = ServerCon()
+            val url = URL(con.url  + "todos/add")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true
