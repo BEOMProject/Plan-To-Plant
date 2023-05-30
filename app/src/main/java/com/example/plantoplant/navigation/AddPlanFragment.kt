@@ -164,10 +164,10 @@ class AddPlanFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 if (response == "1\n") {
                     // 추가 성공
-                    Toast.makeText(requireContext(), "addPlan 성공", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "일정 추가 성공", Toast.LENGTH_SHORT).show()
                 } else if (response == "2\n") {
                     // 추가 실패
-                    Toast.makeText(requireContext(), "addPlan 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "일정 추가 실패", Toast.LENGTH_SHORT).show()
                 }
             }
         } catch (e: MalformedURLException) {
