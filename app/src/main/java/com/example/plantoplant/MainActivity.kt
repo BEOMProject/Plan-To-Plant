@@ -9,67 +9,89 @@ import com.example.plantoplant.databinding.ActivityMainBinding
 import com.example.plantoplant.navigation.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-private lateinit var binding: ActivityMainBinding
-
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var userId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        //val intent = intent
-        val userId = intent.getStringExtra("email")
-        Toast.makeText(this, "환영합니다 ${userId}님!",
-            Toast.LENGTH_SHORT).show()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // Bottom Navigation View
+
+        userId = intent.getStringExtra("email") ?: ""
+        Toast.makeText(this, "환영합니다 $userId 님!", Toast.LENGTH_SHORT).show()
+
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
         binding.bottomNavigation.selectedItemId = R.id.action_calender
+
+        loadProfileFragment()
     }
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
-        val uId = intent.getStringExtra("email").toString()
-        val todayFragment = TodayFragment()
-        val bundle = Bundle()
-        when(p0.itemId) {
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_profile -> {
-                var profileFragment = ProfileFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main_content, profileFragment).commit()
+                loadProfileFragment()
                 return true
             }
             R.id.action_calender -> {
-                var calenderFragment = CalenderFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main_content, calenderFragment).commit()
+                loadCalenderFragment()
                 return true
             }
             R.id.action_addplan -> {
-                var AddPlanFragment = AddPlanFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main_content, AddPlanFragment).commit()
+                loadAddPlanFragment()
                 return true
             }
             R.id.action_today -> {
-                bundle.putString("email", uId)
-                todayFragment.arguments = bundle
-                supportFragmentManager.beginTransaction().replace(R.id.main_content, todayFragment).commit()
+                loadTodayFragment()
                 return true
             }
             R.id.action_plantEncyclopedia -> {
-                var plantEncyclopediaFragment = PlantEncyclopediaFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main_content, plantEncyclopediaFragment).commit()
+                loadPlantEncyclopediaFragment()
                 return true
             }
         }
         return false
     }
+
+    private fun loadProfileFragment() {
+        val profileFragment = ProfileFragment()
+        val bundle = Bundle()
+        bundle.putString("email", userId)
+        profileFragment.arguments = bundle
+        supportFragmentManager.beginTransaction().replace(R.id.main_content, profileFragment).commit()
+    }
+
+    private fun loadCalenderFragment() {
+        val calenderFragment = CalenderFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.main_content, calenderFragment).commit()
+    }
+
+    private fun loadAddPlanFragment() {
+        val addPlanFragment = AddPlanFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.main_content, addPlanFragment).commit()
+    }
+
+    private fun loadTodayFragment() {
+        val todayFragment = TodayFragment()
+        val bundle = Bundle()
+        bundle.putString("email", userId)
+        todayFragment.arguments = bundle
+        supportFragmentManager.beginTransaction().replace(R.id.main_content, todayFragment).commit()
+    }
+
+    private fun loadPlantEncyclopediaFragment() {
+        val plantEncyclopediaFragment = PlantEncyclopediaFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.main_content, plantEncyclopediaFragment).commit()
+    }
+
     private var backPressedTime: Long = 0
+
     override fun onBackPressed() {
-        if(System.currentTimeMillis() - backPressedTime >= 2000) {
+        if (System.currentTimeMillis() - backPressedTime >= 2000) {
             backPressedTime = System.currentTimeMillis()
             Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
-            return
+        } else {
+            super.onBackPressed()
         }
-        if(System.currentTimeMillis() - backPressedTime < 2000) {
-            finish()
-        }
-        println("뒤로가기 버튼 클릭")
-        super.onBackPressed()
     }
 }

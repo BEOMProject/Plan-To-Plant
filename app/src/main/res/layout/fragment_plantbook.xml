@@ -64,4 +64,90 @@
         app:srcCompat="@drawable/ic_arrow_right"
         android:contentDescription="TODO" />
 
+    <ImageView
+        android:id="@+id/cherryblossom"
+        android:layout_width="165dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cherryblossom" />
+
+    <ImageView
+        android:id="@+id/forsythia"
+        android:layout_width="199dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/forsythia" />
+
+    <ImageView
+        android:id="@+id/cherryblossomShadow"
+        android:layout_width="165dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shadow_cherryblossom"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="299dp" />
+
+    <ImageView
+        android:id="@+id/forsythiaShadow"
+        android:layout_width="199dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shadow_forsythia"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="418dp" />
+
+    <ImageView
+        android:id="@+id/fishbread"
+        android:layout_width="177dp"
+        android:layout_height="215dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/LeftArrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/fishbread" />
+
+    <ImageView
+        android:id="@+id/tulip"
+        android:layout_width="141dp"
+        android:layout_height="205dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/RightArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/tulip" />
+
+    <ImageView
+        android:id="@+id/fishbreadShadow"
+        android:layout_width="177dp"
+        android:layout_height="215dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/LeftArrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/shadow_fishbread"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="317dp" />
+
+    <ImageView
+        android:id="@+id/tulipShadow"
+        android:layout_width="141dp"
+        android:layout_height="205dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/RightArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/shadow_tulip"
+        tools:layout_editor_absoluteX="197dp"
+        tools:layout_editor_absoluteY="306dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
