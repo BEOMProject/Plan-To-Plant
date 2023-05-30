@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:text="TextView" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:text="TextView" />
 
     <TextView
@@ -35,7 +35,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/todo4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/suit_bold"
+        android:textSize="10sp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/todo5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/suit_bold"
+        android:textSize="10sp"
         android:text="TextView" />
 
 </LinearLayout>
