@@ -1,12 +1,19 @@
 package com.example.plantoplant.navigation
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.plantoplant.navigation.ToDoViewModel
+import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentTodayBinding
-import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONTokener
@@ -18,70 +25,54 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-
 class TodayFragment : Fragment() {
-    private var _binding: FragmentTodayBinding? = null
-    private val binding get() = _binding!!
+    //private val viewModel by viewModels<ToDoViewModel>()
+    private lateinit var viewModel: ToDoViewModel
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentTodayBinding.inflate(inflater, container, false)
-        //var view = LayoutInflater.from(activity).inflate(R.layout.fragment_today, container, false)
+        val binding = FragmentTodayBinding.inflate(inflater, container, false)
+        val recyclerView = binding.recyclerView
+        val userId = arguments?.getString("email") ?: ""
+        viewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
+
+        viewModel.addItem(Item("2023-05-24", "England"))
+
+        val adapter = ToDoCustomAdapter(viewModel)
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+
+        viewModel.itemsListData.observe(viewLifecycleOwner){
+            adapter.notifyDataSetChanged()
+        }
+
+        viewModel.itemClickEvent.observe(viewLifecycleOwner){
+            ItemDialog(it).show(requireActivity().supportFragmentManager, "ItemDialog")
+        }
+        registerForContextMenu(recyclerView)
+
+        Log.d("items", "${viewModel.items.size}")
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //val binding = FragmentTodayBinding.inflate(inflater, container, false)
-        val userId = arguments?.getString("email") ?: ""
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = makeToDoResponse(userId)
-            val jsons = JSONTokener(response).nextValue() as JSONArray
-            withContext(Dispatchers.Main) {
-                for (i in 0 until jsons.length()) {
-                    val id = jsons.getJSONObject(i).getString("id")
-                    val date = jsons.getJSONObject(i).getString("date")
-                    binding.textView7.text = date.toString()
-                    val toDo = jsons.getJSONObject(i).getString("toDo")
-                    binding.textView8.text = toDo.toString()
-                    val toDoCompleted = jsons.getJSONObject(i).getBoolean("toDoCompleted")
-                }
-            }
-        }
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        activity?.menuInflater?.inflate(R.menu.ctx_menu, menu)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-    private fun makeToDoResponse(user_id: String): String {
-        var response = ""
-
-        try {
-            val con = ServerCon()
-            val url = URL(con.url + "todos/all?user_id=$user_id")
-            val conn = url.openConnection() as HttpURLConnection
-            conn.defaultUseCaches = false
-            conn.requestMethod = "GET"
-            conn.setRequestProperty("Accept", "application/json")
-            conn.connect()
-
-            val inputStream = conn.inputStream
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-            val stringBuilder = StringBuilder()
-            var line: String?
-            while (bufferedReader.readLine().also { line = it } != null) {
-                stringBuilder.append(line)
-            }
-            response = stringBuilder.toString()
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.delete -> viewModel.deleteItem(viewModel.itemLongClick)
+            R.id.edit -> viewModel.itemClickEvent.value = viewModel.itemLongClick
+            else -> return false
         }
-        catch (e: MalformedURLException){
-            e.printStackTrace()
-        } catch (e: IOException){
-            e.printStackTrace()
-        } catch(e: FileNotFoundException){
-            e.printStackTrace()
-        }
-        return response
+        return true
     }
-
 }
