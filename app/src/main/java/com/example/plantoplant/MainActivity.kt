@@ -62,6 +62,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun loadCalenderFragment() {
         val calenderFragment = CalenderFragment()
+        val bundle = Bundle()
+        bundle.putString("email", userId)
+        calenderFragment.arguments = bundle
         supportFragmentManager.beginTransaction().replace(R.id.main_content, calenderFragment).commit()
     }
 

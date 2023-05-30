@@ -1,5 +1,6 @@
 package com.example.plantoplant.navigation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,8 @@ import java.time.format.DateTimeFormatter
 
 class CalenderFragment : Fragment() {
 
+    lateinit var userId: String
+
     private lateinit var minusmonth : ImageButton
     private lateinit var plusmonth : ImageButton
     private lateinit var selectedDate: LocalDate //년월   변수
@@ -25,7 +28,6 @@ class CalenderFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_calendar, container, false)
-
         selectedDate = LocalDate.now() //현재 날짜
 
         monthYearText = view.findViewById(R.id.monthYearText)
@@ -45,16 +47,19 @@ class CalenderFragment : Fragment() {
             selectedDate = selectedDate.plusMonths(1) //현재 월 +1
             setMonthView()
         }
+
         return view
     }
 
 
     private fun setMonthView() {
         monthYearText.text = monthYearFromDate(selectedDate) //년월 텍스트뷰
+        userId = arguments?.getString("email") ?: "" // 유저 아이디
+
         //날짜 생성, 리스트 담기
         val dayList = dayInMonthArray(selectedDate)
         //어댑터 초기화
-        val adapter = CalenderAdapter(dayList, requireContext())
+        val adapter = CalenderAdapter(dayList, userId, selectedDate, requireContext())
         //레이아웃 설정(열 7개)
         val manager: RecyclerView.LayoutManager = GridLayoutManager(requireContext(), 7)
         //레이아웃 적용
@@ -89,6 +94,7 @@ class CalenderFragment : Fragment() {
                 dayList.add((i - dayOfWeek).toString())
             }
         }
+
         return dayList
     }
 
