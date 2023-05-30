@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantoplant.databinding.ActivityLoginBinding
+import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -92,7 +93,8 @@ class LoginActivity : AppCompatActivity() {
         var response = ""
 
         try {
-            val url = URL("http://223.194.134.71:8080/user/login")
+            val con = ServerCon()
+            val url = URL(con.url + "user/login")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.doInput = true
