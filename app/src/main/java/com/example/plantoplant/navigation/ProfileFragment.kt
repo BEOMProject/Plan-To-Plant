@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
         var response = ""
 
         try {
-            val url = URL("http://125.142.0.210:8080/user/info?uid=$userId")
+            val url = URL("http://223.194.134.71:8080/user/info?uid=$userId")
             val conn = url.openConnection() as HttpURLConnection
             conn.defaultUseCaches = false
             conn.requestMethod = "GET"
