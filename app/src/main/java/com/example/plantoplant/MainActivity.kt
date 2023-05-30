@@ -67,6 +67,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun loadAddPlanFragment() {
         val addPlanFragment = AddPlanFragment()
+        val bundle = Bundle()
+        bundle.putString("email", userId)
+        addPlanFragment.arguments = bundle
         supportFragmentManager.beginTransaction().replace(R.id.main_content, addPlanFragment).commit()
     }
 

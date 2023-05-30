@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.plantoplant.R
+import com.example.plantoplant.databinding.FragmentAddplanBinding
 import com.example.plantoplant.databinding.FragmentProfileBinding
 import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddPlanFragment : Fragment() {
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentAddplanBinding? = null
     private val binding get() = _binding!!
     private lateinit var addPlanButton: Button
     private lateinit var userId: String
@@ -46,7 +48,7 @@ class AddPlanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentAddplanBinding.inflate(inflater, container, false)
         userId = arguments?.getString("email") ?: ""
         var view =
             LayoutInflater.from(activity).inflate(R.layout.fragment_addplan, container, false)
@@ -83,6 +85,11 @@ class AddPlanFragment : Fragment() {
         btnDatePicker = view.findViewById(R.id.SelectDate)
         btnDatePicker.setOnClickListener {
             showDatePickerDialog()
+        }
+
+        var checkBox = view.findViewById<CheckBox>(R.id.checkBoxtoregisterCalender)
+        checkBox.setOnCheckedChangeListener{ _, isChecked ->
+            addPlanOnCalendar = isChecked
         }
 
         addPlanButton = view.findViewById(R.id.addplanButton)
@@ -132,7 +139,7 @@ class AddPlanFragment : Fragment() {
 
             val jsonObject = JSONObject()
 
-            jsonObject.put("id", userId) // 얘를 id로 바꾸면 서버에서 addPlan 실패 로그가 뜸, user로 하면 URL NotFound가 뜸;;
+            jsonObject.put("id", userId)
             jsonObject.put("date", planDate)
             jsonObject.put("toDo", plan)
             jsonObject.put("toDoVisibilityCalendar", addPlanOnCalendar)
@@ -155,12 +162,12 @@ class AddPlanFragment : Fragment() {
             val response = stringBuilder.toString()
 
             withContext(Dispatchers.Main) {
-                if (response == "1") {
+                if (response == "1\n") {
                     // 추가 성공
-                    Toast.makeText(requireContext(), "Plan added successfully", Toast.LENGTH_SHORT).show()
-                } else if (response == "2") {
+                    Toast.makeText(requireContext(), "일정 추가 성공", Toast.LENGTH_SHORT).show()
+                } else if (response == "2\n") {
                     // 추가 실패
-                    Toast.makeText(requireContext(), "Failed to add plan", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "일정 추가 실패", Toast.LENGTH_SHORT).show()
                 }
             }
         } catch (e: MalformedURLException) {
