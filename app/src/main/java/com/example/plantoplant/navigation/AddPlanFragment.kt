@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentAddplanBinding
-import com.example.plantoplant.databinding.FragmentProfileBinding
 import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
