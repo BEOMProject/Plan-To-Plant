@@ -54,9 +54,6 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
             viewModel.itemLongClick = viewHolder.adapterPosition
             false
         }
-        Log.d("Adapter", "getItemCount: ${getItemCount()}")
-        Log.d("Adapter", "viewModel.items: ${viewModel.items}")
-        Log.d("items", "${viewModel.items.size}")
         return viewHolder
     }
 

@@ -25,6 +25,7 @@ data class Item(val date: String, val toDo: String)
 class ToDoViewModel: ViewModel() {
     val itemsListData = MutableLiveData<ArrayList<Item>>()
     val itemClickEvent = MutableLiveData<Int>()
+    val ids = ArrayList<Int>()
     var itemLongClick = -1
     val items = ArrayList<Item>()
 
