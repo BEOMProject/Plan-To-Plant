@@ -29,6 +29,24 @@
         app:layout_constraintTop_toBottomOf="@+id/SelectDate"
         app:srcCompat="@drawable/bg_addplan_plan" />
 
+    <EditText
+        android:id="@+id/editTextToaddplan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green0"
+        android:ems="16"
+        android:fontFamily="@font/suit_semibold"
+        android:hint="@string/addPlan"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/green5"
+        android:textColorHint="#9A385A3F"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/addplan_bg2"
+        app:layout_constraintEnd_toEndOf="@+id/addplan_bg2"
+        app:layout_constraintStart_toStartOf="@+id/addplan_bg2"
+        app:layout_constraintTop_toTopOf="@+id/addplan_bg2" />
+
     <Button
         android:id="@+id/SelectDate"
         android:layout_width="286dp"
@@ -58,24 +76,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextToaddplan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/green0"
-        android:ems="16"
-        android:fontFamily="@font/suit_semibold"
-        android:hint="@string/addPlan"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textColor="@color/green5"
-        android:textColorHint="#9A385A3F"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addplan_bg2"
-        app:layout_constraintEnd_toEndOf="@+id/addplan_bg2"
-        app:layout_constraintStart_toStartOf="@+id/addplan_bg2"
-        app:layout_constraintTop_toTopOf="@+id/addplan_bg2" />
 
     <Button
         android:id="@+id/addplanButton"

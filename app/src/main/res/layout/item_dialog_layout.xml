@@ -1,38 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditText android:id="@+id/editDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+    <Button
+        android:id="@+id/editDate"
+        android:layout_width="286dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/suit_medium"
+        android:text="수정할 날짜 선택하기"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_addplan_plan"
+        app:tint="#334d40" />
 
-    <EditText android:id="@+id/editToDo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Address"
-        android:ems="10"
-        android:inputType="textPersonName"
+    <ImageView
+        android:id="@+id/editToDo_bg"
+        android:layout_width="286dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDate"/>
+        app:layout_constraintTop_toBottomOf="@+id/editDate"
+        app:srcCompat="@drawable/bg_addplan_plan" />
 
-    <Button android:id="@+id/buttonOK"
+    <EditText
+        android:id="@+id/editToDo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="OK"
+        android:backgroundTint="@color/green0"
+        android:ems="16"
+        android:fontFamily="@font/suit_semibold"
+        android:hint="수정할 내용은 무엇인가요?"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/green5"
+        android:textColorHint="#9A385A3F"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editToDo_bg"
+        app:layout_constraintEnd_toEndOf="@+id/editToDo_bg"
+        app:layout_constraintStart_toStartOf="@+id/editToDo_bg"
+        app:layout_constraintTop_toTopOf="@+id/editToDo_bg" />
+
+    <Button
+        android:id="@+id/buttonOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="수정하기"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editToDo"/>
+        app:layout_constraintTop_toBottomOf="@+id/editToDo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

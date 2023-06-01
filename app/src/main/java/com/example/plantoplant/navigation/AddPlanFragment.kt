@@ -71,6 +71,7 @@ class AddPlanFragment : Fragment() {
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
         return view
     }
 
