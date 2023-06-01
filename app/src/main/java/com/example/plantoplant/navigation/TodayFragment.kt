@@ -55,6 +55,7 @@ class TodayFragment : Fragment() {
                 val toDo = jsons.getJSONObject(i).getString("toDo")
                 viewModel.items.add(Item("${date[1]}-${date[2]}", toDo))
             }
+            viewModel.items.sortWith(compareBy({it.date[1]}, {it.date[2]}))
         }
 
         // 메인 스레드 join
@@ -86,13 +87,17 @@ class TodayFragment : Fragment() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.delete -> {
-                toDoId = viewModel.ids[viewModel.itemLongClick]
-                viewModel.deleteItem(viewModel.itemLongClick)
+                val idx = viewModel.itemLongClick
+                viewModel.items.removeAt(idx)
+                toDoId = viewModel.ids[idx]
                 CoroutineScope(Dispatchers.IO).launch {
                     deletePlanData()
                 }
+                viewModel.itemsListData.value = viewModel.items
             }
-            R.id.edit -> viewModel.itemClickEvent.value = viewModel.itemLongClick
+            R.id.edit -> {
+                viewModel.itemClickEvent.value = viewModel.itemLongClick
+            }
             else -> return false
         }
         return true
@@ -161,8 +166,9 @@ class TodayFragment : Fragment() {
             val response = stringBuilder.toString()
 
             withContext(Dispatchers.Main){
-                if(response == "1\n")
+                if(response == "1\n") {
                     Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                }
                 else
                     Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
             }
