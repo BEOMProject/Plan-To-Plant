@@ -1,5 +1,5 @@
 package com.example.plantoplant.util
 
 class ServerCon {
-    val url: String = "http://172.29.64.65:8080/"
+    val url: String = "http://203.251.174.183:8080/"
 }

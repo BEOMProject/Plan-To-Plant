@@ -85,7 +85,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun loadPlantEncyclopediaFragment() {
-        val plantEncyclopediaFragment = PlantEncyclopediaFragment()
+        val plantEncyclopediaFragment = PlantBookFragment()
+        val bundle = Bundle()
+        bundle.putString("email", userId)
+        plantEncyclopediaFragment.arguments = bundle
         supportFragmentManager.beginTransaction().replace(R.id.main_content, plantEncyclopediaFragment).commit()
     }
 
