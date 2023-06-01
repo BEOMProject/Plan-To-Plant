@@ -9,7 +9,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentPlantbookBinding
@@ -26,6 +25,7 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.properties.Delegates
 
 class PlantInfo(
     val id: Int,
@@ -49,7 +49,7 @@ class PlantBookFragment : Fragment() {
 
     private lateinit var flowerName: String
     private lateinit var userId: String
-    private lateinit var plantCardView: CardView
+    private var plantId by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,8 +69,6 @@ class PlantBookFragment : Fragment() {
         test3Shadow = view.findViewById(R.id.fishbreadShadow)
         test4Shadow = view.findViewById(R.id.tulipShadow)
 
-        plantCardView = view.findViewById(R.id.plantCardView)
-        plantCardView.visibility = View.INVISIBLE
 
         val job = CoroutineScope(Dispatchers.IO).launch{
             val response = getObtainedPlants(userId)
@@ -173,6 +171,7 @@ class PlantBookFragment : Fragment() {
                 stringBuilder.append(line)
             }
             response = stringBuilder.toString()
+            println("서버 응답: $response")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -226,30 +225,30 @@ class PlantBookFragment : Fragment() {
                 val plantName = jsonObject.getString("plantName")
                 val count = jsonObject.getInt("count")
                 val isFound = jsonObject.getBoolean("found")
-
-                when(id){
-                    1 -> {
-                        if(isFound) {
-                            println("1 값 가져옴")
+//아머르겟어 식물도감에서는 userid, plantname, count, found이렇게 받아오는데 데베에서는 id랑 userid랑 plantid 다 받아오는거면 어떻게 해야하지?????????????????;
+                when (plantName) {
+                    "test" -> {
+                        if (isFound) {
+                            println("$id 값 가져옴")
                             test1.visibility = View.VISIBLE
                             test1Shadow.visibility = View.INVISIBLE
                         }
                     }
-                    2 -> {
-                        if(isFound) {
-                            println("2 값 가져옴")
+                    "test1" -> {
+                        if (isFound) {
+                            println("$id 값 가져옴")
                             test2.visibility = View.VISIBLE
                             test2Shadow.visibility = View.INVISIBLE
                         }
                     }
-                    3 -> {
-                        if(isFound) {
+                    "test2" -> {
+                        if (isFound) {
                             test3.visibility = View.VISIBLE
                             test3Shadow.visibility = View.INVISIBLE
                         }
                     }
-                    4 -> {
-                        if(isFound) {
+                    "test3" -> {
+                        if (isFound) {
                             test4.visibility = View.VISIBLE
                             test4Shadow.visibility = View.INVISIBLE
                         }

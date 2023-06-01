@@ -46,24 +46,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:measureAllChildren="true">
 
                         <ImageButton
                             android:id="@+id/cherryblossom"
-                            android:layout_width="165dp"
-                            android:layout_height="201dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:backgroundTint="#00FFFFFF"
-                            android:padding="22dp"
+                            android:clickable="true"
+                            android:contentDescription="cherry"
                             android:scaleType="centerCrop"
                             android:visibility="gone"
-                            android:clickable="true"
-                            app:srcCompat="@drawable/cherryblossom"
-                            android:contentDescription="cherry" />
+                            app:srcCompat="@drawable/cherryblossom" />
 
                         <ImageView
                             android:id="@+id/cherryblossomShadow"
-                            android:layout_width="165dp"
-                            android:layout_height="201dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:visibility="visible"
                             app:srcCompat="@drawable/shadow_cherryblossom" />
 
@@ -73,19 +73,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:measureAllChildren="true">
 
                         <ImageView
                             android:id="@+id/forsythiaShadow"
-                            android:layout_width="199dp"
-                            android:layout_height="204dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:visibility="visible"
                             app:srcCompat="@drawable/shadow_forsythia" />
 
                         <ImageButton
                             android:id="@+id/forsythia"
-                            android:layout_width="199dp"
-                            android:layout_height="204dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:backgroundTint="#00FFFFFF"
                             android:padding="22dp"
                             android:scaleType="centerCrop"
@@ -111,15 +112,15 @@
 
                         <ImageView
                             android:id="@+id/fishbreadShadow"
-                            android:layout_width="177dp"
-                            android:layout_height="215dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:visibility="visible"
                             app:srcCompat="@drawable/shadow_fishbread" />
 
                         <ImageButton
                             android:id="@+id/fishbread"
-                            android:layout_width="177dp"
-                            android:layout_height="215dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:backgroundTint="#00FFFFFF"
                             android:padding="20dp"
                             android:scaleType="centerCrop"
@@ -137,15 +138,15 @@
 
                         <ImageView
                             android:id="@+id/tulipShadow"
-                            android:layout_width="141dp"
-                            android:layout_height="205dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:visibility="visible"
                             app:srcCompat="@drawable/shadow_tulip" />
 
                         <ImageButton
                             android:id="@+id/tulip"
-                            android:layout_width="141dp"
-                            android:layout_height="205dp"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
                             android:backgroundTint="#00FFFFFF"
                             android:padding="20dp"
                             android:scaleType="centerCrop"
