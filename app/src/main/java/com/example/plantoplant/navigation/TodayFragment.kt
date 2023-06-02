@@ -1,6 +1,7 @@
 package com.example.plantoplant.navigation
 
 import android.annotation.SuppressLint
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -25,19 +26,17 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.time.LocalDate
 
 class TodayFragment : Fragment() {
     //private val viewModel by viewModels<ToDoViewModel>()
     private lateinit var viewModel: ToDoViewModel
     private var toDoId: Int = 0
     @SuppressLint("NotifyDataSetChanged")
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // setting
         val binding = FragmentTodayBinding.inflate(inflater, container, false)
-        val recyclerView = binding.recyclerView
+        val recyclerView = binding.todayRecyclerView
         val userId = arguments?.getString("email") ?: ""
         viewModel = ViewModelProvider(this)[ToDoViewModel::class.java]
         val adapter = ToDoCustomAdapter(viewModel)
@@ -53,9 +52,9 @@ class TodayFragment : Fragment() {
                 viewModel.ids.add(jsons.getJSONObject(i).getInt("id"))
                 val date = jsons.getJSONObject(i).getString("date").split("-")
                 val toDo = jsons.getJSONObject(i).getString("toDo")
-                viewModel.items.add(Item("${date[1]}-${date[2]}", toDo))
+                viewModel.items.add(Item("${date[1].toInt()}-${date[2].toInt()}", toDo))
             }
-            viewModel.items.sortWith(compareBy({it.date[1]}, {it.date[2]}))
+            viewModel.items.sortWith(compareBy { it.date })
         }
 
         // 메인 스레드 join
@@ -170,7 +169,7 @@ class TodayFragment : Fragment() {
                     Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 }
                 else
-                    Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "오류발생!", Toast.LENGTH_SHORT).show()
             }
         } catch (e: MalformedURLException) {
             e.printStackTrace()
@@ -178,5 +177,4 @@ class TodayFragment : Fragment() {
             e.printStackTrace()
         }
     }
-
 }

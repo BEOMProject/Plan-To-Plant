@@ -45,8 +45,7 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
     override fun getItemCount() = viewModel.items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
         val viewHolder = ViewHolder(view)
         view.setOnClickListener{
             viewModel.itemClickEvent.value = viewHolder.adapterPosition
