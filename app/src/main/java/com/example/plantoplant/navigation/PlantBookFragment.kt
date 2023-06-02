@@ -27,25 +27,24 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.properties.Delegates
 
-class PlantInfo(
-    val id: Int,
-    val name: String,
-    val description: String
-)
 
 class PlantBookFragment : Fragment() {
 
     private var _binding: FragmentPlantbookBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var test: ImageButton
     private lateinit var test1: ImageButton
     private lateinit var test2: ImageButton
     private lateinit var test3: ImageButton
     private lateinit var test4: ImageButton
+    private lateinit var test5: ImageButton
+    private lateinit var testShadow: ImageView
     private lateinit var test1Shadow: ImageView
     private lateinit var test2Shadow: ImageView
     private lateinit var test3Shadow: ImageView
     private lateinit var test4Shadow: ImageView
+    private lateinit var test5shadow: ImageView
 
     private lateinit var flowerName: String
     private lateinit var userId: String
@@ -60,14 +59,16 @@ class PlantBookFragment : Fragment() {
         userId = arguments?.getString("email") ?: ""
         val view = inflater.inflate(R.layout.fragment_plantbook, container, false)
 
-        test1 = view.findViewById(R.id.cherryblossom)
-        test2 = view.findViewById(R.id.forsythia)
-        test3 = view.findViewById(R.id.fishbread)
-        test4 = view.findViewById(R.id.tulip)
-        test1Shadow = view.findViewById(R.id.cherryblossomShadow)
-        test2Shadow = view.findViewById(R.id.forsythiaShadow)
-        test3Shadow = view.findViewById(R.id.fishbreadShadow)
-        test4Shadow = view.findViewById(R.id.tulipShadow)
+        test = view.findViewById(R.id.cherryblossom)
+        test1 = view.findViewById(R.id.forsythia)
+        test2 = view.findViewById(R.id.fishbread)
+        test3 = view.findViewById(R.id.tulip)
+        //test4 = view.findViewById(R.id.tulip)
+        testShadow = view.findViewById(R.id.cherryblossomShadow)
+        test1Shadow = view.findViewById(R.id.forsythiaShadow)
+        test2Shadow = view.findViewById(R.id.fishbreadShadow)
+        test3Shadow = view.findViewById(R.id.tulipShadow)
+        //test4Shadow = view.findViewById(R.id.tulipShadow)
 
 
         val job = CoroutineScope(Dispatchers.IO).launch{
@@ -79,19 +80,20 @@ class PlantBookFragment : Fragment() {
             job.cancel()
         }
 
-        test1.setOnClickListener {
+
+        test.setOnClickListener {
             println("벚꽃 클릭됨")
             showPlantInfo("Cherry Blossom")
         }
-        test2.setOnClickListener {
+        test1.setOnClickListener {
             println("개나리 클릭됨")
             showPlantInfo("Forsythia")
         }
-        test3.setOnClickListener {
+        test2.setOnClickListener {
             println("붕어빵 클릭됨")
             showPlantInfo("Fishbread")
         }
-        test4.setOnClickListener {
+        test3.setOnClickListener {
             println("튤립 클릭됨")
             showPlantInfo("Tulip")
         }
@@ -100,7 +102,7 @@ class PlantBookFragment : Fragment() {
         return view
     }
 
-    private fun getPlantsData(plantId: Int): PlantInfo? {
+    /*private fun getPlantsData(plantId: Int): PlantInfo? {
         var plantInfo: PlantInfo? = null
 
         try {
@@ -142,6 +144,7 @@ class PlantBookFragment : Fragment() {
 
                     // 가져온 정보를 PlantInfo 객체로 변환
                     plantInfo = PlantInfo(plantId, plantName, plantDescription)
+                    println("서버 응답: $plantInfo")
                 }
             }
         } catch (e: Exception) {
@@ -150,6 +153,8 @@ class PlantBookFragment : Fragment() {
 
         return plantInfo
     }
+
+     */
 
     private fun getObtainedPlants(userId: String): String {
         var response = ""
@@ -180,6 +185,7 @@ class PlantBookFragment : Fragment() {
     }
 
     private fun showPlantInfo(plantName: String) {
+        flowerName = plantName
         val dialogView = layoutInflater.inflate(R.layout.dialog_plant_info, null)
 
         val dialogBuilder = AlertDialog.Builder(requireContext())
@@ -191,24 +197,32 @@ class PlantBookFragment : Fragment() {
         val titleTextView = dialogView.findViewById<TextView>(R.id.plantNameTextView)
         val descriptionTextView = dialogView.findViewById<TextView>(R.id.plantDescriptionTextView)
 
-        val plantId = getPlantIdByName(plantName)
-        val plantInfo = getPlantsData(plantId)
-
-        if (plantInfo != null) {
-            titleTextView.text = plantInfo.name
-            descriptionTextView.text = plantInfo.description
-        } else {
-            Toast.makeText(requireContext(), "식물 정보를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun getPlantIdByName(plantName: String): Int {
-        return when (plantName) {
-            "Cherry Blossom" -> 1
-            "Forsythia" -> 2
-            "Fishbread" -> 3
-            "Tulip" -> 4
+        val titleResId = when (plantName) {
+            "Cherry Blossom" -> R.string.cherryBlossom
+            "Forsythia" -> R.string.forsythia
+            "Fishbread" -> R.string.fishbread
+            "Tulip" -> R.string.tulip
             else -> 0
+        }
+
+        val descriptionResId = when (plantName) {
+            "Cherry Blossom" -> R.string.cherryBlossomInfo
+            "Forsythia" -> R.string.forsythiaInfo
+            "Fishbread" -> R.string.fishbreadInfo
+            "Tulip" -> R.string.tulipInfo
+            else -> 0
+        }
+
+        if (titleResId != 0) {
+            titleTextView.text = getString(titleResId)
+        } else {
+            titleTextView.text = ""
+        }
+
+        if (descriptionResId != 0) {
+            descriptionTextView.text = getString(descriptionResId)
+        } else {
+            descriptionTextView.text = ""
         }
     }
 
@@ -225,32 +239,48 @@ class PlantBookFragment : Fragment() {
                 val plantName = jsonObject.getString("plantName")
                 val count = jsonObject.getInt("count")
                 val isFound = jsonObject.getBoolean("found")
-//아머르겟어 식물도감에서는 userid, plantname, count, found이렇게 받아오는데 데베에서는 id랑 userid랑 plantid 다 받아오는거면 어떻게 해야하지?????????????????;
+
                 when (plantName) {
                     "test" -> {
+                        if (isFound) {
+                            println("$id 값 가져옴")
+                            test.visibility = View.VISIBLE
+                            testShadow.visibility = View.INVISIBLE
+                        }
+                    }
+                    "test1" -> {
                         if (isFound) {
                             println("$id 값 가져옴")
                             test1.visibility = View.VISIBLE
                             test1Shadow.visibility = View.INVISIBLE
                         }
                     }
-                    "test1" -> {
+                    "test2" -> {
                         if (isFound) {
                             println("$id 값 가져옴")
                             test2.visibility = View.VISIBLE
                             test2Shadow.visibility = View.INVISIBLE
                         }
                     }
-                    "test2" -> {
+                    "test3" -> {
                         if (isFound) {
+                            println("$id 값 가져옴")
                             test3.visibility = View.VISIBLE
                             test3Shadow.visibility = View.INVISIBLE
                         }
                     }
-                    "test3" -> {
+                    "test4" -> {
                         if (isFound) {
-                            test4.visibility = View.VISIBLE
-                            test4Shadow.visibility = View.INVISIBLE
+                            println("$id 값 가져옴")
+                            //test4.visibility = View.VISIBLE
+                            //test4Shadow.visibility = View.INVISIBLE
+                        }
+                    }
+                    "test5" -> {
+                        if (isFound) {
+                            println("$id 값 가져옴")
+                            //test5.visibility = View.VISIBLE
+                            //test5Shadow.visibility = View.INVISIBLE
                         }
                     }
                 }
