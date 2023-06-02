@@ -88,6 +88,7 @@ class TodayFragment : Fragment() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+            // 일정 삭제 구현
             R.id.delete -> {
                 val idx = viewModel.itemLongClick
                 viewModel.items.removeAt(idx)
@@ -95,6 +96,7 @@ class TodayFragment : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     deletePlanData()
                 }
+                viewModel.ids.removeAt(idx)
                 viewModel.itemsListData.value = viewModel.items
             }
             R.id.edit -> {
