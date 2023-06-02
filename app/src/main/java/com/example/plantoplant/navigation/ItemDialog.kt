@@ -42,10 +42,10 @@ class ItemDialog(private val itemPos: Int = -1): BottomSheetDialogFragment() {
             updateLabel(myCalendar)
         }
 
-        viewModel.itemsListData.observe(viewLifecycleOwner) {
-            editDate.text = viewModel.items[viewModel.itemClickEvent.value!!].date
-            editToDo.setText(viewModel.items[viewModel.itemClickEvent.value!!].toDo)
-        }
+//        viewModel.itemsListData.observe(viewLifecycleOwner) {
+//            editDate.text = viewModel.items[viewModel.itemClickEvent.value!!].date
+//            editToDo.setText(viewModel.items[viewModel.itemClickEvent.value!!].toDo)
+//        }
 
         editDate.setOnClickListener {
             DatePickerDialog(
