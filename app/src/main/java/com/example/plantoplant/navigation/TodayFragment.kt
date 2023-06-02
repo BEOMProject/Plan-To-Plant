@@ -3,6 +3,9 @@ package com.example.plantoplant.navigation
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,11 +14,9 @@ import com.example.plantoplant.databinding.FragmentTodayBinding
 import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.*
 import org.json.JSONArray
+import org.json.JSONObject
 import org.json.JSONTokener
-import java.io.BufferedReader
-import java.io.FileNotFoundException
-import java.io.IOException
-import java.io.InputStreamReader
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
@@ -23,6 +24,7 @@ import java.net.URL
 class TodayFragment : Fragment() {
     //private val viewModel by viewModels<ToDoViewModel>()
     private lateinit var viewModel: ToDoViewModel
+    private var toDoId: Int = 0
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,10 +45,12 @@ class TodayFragment : Fragment() {
             val response = makeToDoResponse(userId)
             val jsons = JSONTokener(response).nextValue() as JSONArray
             for (i in 0 until jsons.length()) {
+                viewModel.ids.add(jsons.getJSONObject(i).getInt("id"))
                 val date = jsons.getJSONObject(i).getString("date").split("-")
                 val toDo = jsons.getJSONObject(i).getString("toDo")
                 viewModel.items.add(Item("${date[1]}-${date[2]}", toDo))
             }
+            viewModel.items.sortWith(compareBy({it.date[1]}, {it.date[2]}))
         }
 
         // 메인 스레드 join
@@ -77,8 +81,18 @@ class TodayFragment : Fragment() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.delete -> viewModel.deleteItem(viewModel.itemLongClick)
-            R.id.edit -> viewModel.itemClickEvent.value = viewModel.itemLongClick
+            R.id.delete -> {
+                val idx = viewModel.itemLongClick
+                viewModel.items.removeAt(idx)
+                toDoId = viewModel.ids[idx]
+                CoroutineScope(Dispatchers.IO).launch {
+                    deletePlanData()
+                }
+                viewModel.itemsListData.value = viewModel.items
+            }
+            R.id.edit -> {
+                viewModel.itemClickEvent.value = viewModel.itemLongClick
+            }
             else -> return false
         }
         return true
@@ -114,4 +128,50 @@ class TodayFragment : Fragment() {
         }
         return response
     }
+
+    private suspend fun deletePlanData(){
+        try {
+            val con = ServerCon()
+            val url = URL(con.url + "todos/delete")
+            val conn = url.openConnection() as HttpURLConnection
+            conn.defaultUseCaches = false
+            conn.doInput = true
+            conn.doOutput = true
+            conn.requestMethod = "POST"
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("Accept", "application/json")
+
+            val jsonObject = JSONObject()
+
+            jsonObject.put("toDoId", toDoId)
+
+            val outStream = OutputStreamWriter(conn.outputStream, "UTF-8")
+            outStream.write(jsonObject.toString())
+            outStream.flush()
+
+            val inputStream = conn.inputStream
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val stringBuilder = StringBuilder()
+            var line: String?
+            while (bufferedReader.readLine().also { line = it } != null) {
+                stringBuilder.append(line).append("\n")
+            }
+            inputStream.close()
+
+            val response = stringBuilder.toString()
+
+            withContext(Dispatchers.Main){
+                if(response == "1\n") {
+                    Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                else
+                    Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: MalformedURLException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
 }

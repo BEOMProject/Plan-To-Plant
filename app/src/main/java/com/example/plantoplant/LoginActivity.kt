@@ -61,7 +61,6 @@ class LoginActivity : AppCompatActivity() {
             val job = CoroutineScope(Dispatchers.IO).launch {
                 val response = async { makeLoginRequest(email, password) }
                 loginResult = response.await()
-                Log.d(TAG, "함수에서 받은 결과: $loginResult")
 
                 when (loginResult) {
                     "1\n" -> {
@@ -122,7 +121,6 @@ class LoginActivity : AppCompatActivity() {
             }
 
             response = stringBuilder.toString()
-            Log.d(TAG, "서버에서 받은 결과: $response")
         } catch (e: MalformedURLException) {
             e.printStackTrace()
         } catch (e: IOException) {

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -56,7 +57,6 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
             viewModel.itemLongClick = viewHolder.adapterPosition
             false
         }
-
         return viewHolder
     }
 
