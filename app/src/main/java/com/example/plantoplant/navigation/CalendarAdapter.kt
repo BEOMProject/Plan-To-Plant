@@ -71,8 +71,6 @@ class CalenderAdapter(private val dayList: ArrayList<String>,
                     }
                 }
 
-                println(jsonResult)
-
                 if (jsonResult == "") {
                     holder.todo1Text.text = ""
                     holder.todo2Text.text = ""

@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:orientation="horizontal">
@@ -17,11 +17,8 @@
                 android:id="@+id/previousMonth"
                 android:layout_width="52dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="80dp"
                 android:backgroundTint="#FFFFFF"
                 android:scaleType="fitCenter"
-                app:layout_constraintEnd_toStartOf="@+id/monthYearText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_left_circle" />
@@ -30,30 +27,28 @@
                 android:id="@+id/monthYearText"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="40dp"
                 android:fontFamily="@font/suit_semibold"
                 android:gravity="center"
                 android:text="2023 4월"
                 android:textAlignment="center"
                 android:textColor="@color/green5"
                 android:textSize="20sp"
-                tools:layout_editor_absoluteX="189dp"
-                tools:layout_editor_absoluteY="12dp" />
+                app:layout_constraintEnd_toStartOf="@+id/nextMonth"
+                app:layout_constraintStart_toEndOf="@+id/previousMonth"
+                tools:layout_editor_absoluteY="0dp" />
 
             <ImageButton
                 android:id="@+id/nextMonth"
                 android:layout_width="52dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
                 android:backgroundTint="#FFFFFF"
                 android:scaleType="fitCenter"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/monthYearText"
                 app:srcCompat="@drawable/ic_arrow_right_circle"
                 tools:layout_editor_absoluteY="4dp" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,18 +2,13 @@ package com.example.plantoplant.navigation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.plantoplant.navigation.ToDoViewModel
 import com.example.plantoplant.R
 import com.example.plantoplant.databinding.FragmentTodayBinding
 import com.example.plantoplant.util.ServerCon
@@ -55,6 +50,7 @@ class TodayFragment : Fragment() {
                 val toDo = jsons.getJSONObject(i).getString("toDo")
                 viewModel.items.add(Item("${date[1]}-${date[2]}", toDo))
             }
+            viewModel.items.sortWith(compareBy({it.date[1]}, {it.date[2]}))
         }
 
         // 메인 스레드 join
@@ -86,13 +82,17 @@ class TodayFragment : Fragment() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.delete -> {
-                toDoId = viewModel.ids[viewModel.itemLongClick]
-                viewModel.deleteItem(viewModel.itemLongClick)
+                val idx = viewModel.itemLongClick
+                viewModel.items.removeAt(idx)
+                toDoId = viewModel.ids[idx]
                 CoroutineScope(Dispatchers.IO).launch {
                     deletePlanData()
                 }
+                viewModel.itemsListData.value = viewModel.items
             }
-            R.id.edit -> viewModel.itemClickEvent.value = viewModel.itemLongClick
+            R.id.edit -> {
+                viewModel.itemClickEvent.value = viewModel.itemLongClick
+            }
             else -> return false
         }
         return true
@@ -161,8 +161,9 @@ class TodayFragment : Fragment() {
             val response = stringBuilder.toString()
 
             withContext(Dispatchers.Main){
-                if(response == "1\n")
+                if(response == "1\n") {
                     Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                }
                 else
                     Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
             }
