@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
         android:textSize="10sp"
+        android:layout_marginTop="2dp"
+        android:background="@color/green0"
         android:text="TextView" />
 
     <TextView
@@ -28,6 +30,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
         android:textSize="10sp"
+        android:layout_marginTop="2dp"
+        android:background="@color/green0"
         android:text="TextView" />
 
     <TextView
@@ -36,6 +40,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
         android:textSize="10sp"
+        android:layout_marginTop="2dp"
+        android:background="@color/green0"
         android:text="TextView" />
 
     <TextView
@@ -44,6 +50,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
         android:textSize="10sp"
+        android:layout_marginTop="2dp"
+        android:background="@color/green0"
         android:text="TextView" />
 
     <TextView
@@ -52,6 +60,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/suit_bold"
         android:textSize="10sp"
+        android:layout_marginTop="2dp"
+        android:background="@color/green0"
         android:text="TextView" />
 
 </LinearLayout>
