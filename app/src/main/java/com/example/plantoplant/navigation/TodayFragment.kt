@@ -50,13 +50,17 @@ class TodayFragment : Fragment() {
             val jsons = JSONTokener(response).nextValue() as JSONArray
             for (i in 0 until jsons.length()) {
                 viewModel.ids.add(jsons.getJSONObject(i).getInt("id"))
-                val date = jsons.getJSONObject(i).getString("date").split("-")
+                val date = jsons.getJSONObject(i).getString("date").split("-") as ArrayList<String>
+                date.removeAt(0)
                 val toDo = jsons.getJSONObject(i).getString("toDo")
-                viewModel.items.add(Item("${date[1].toInt()}-${date[2].toInt()}", toDo))
+                viewModel.items.add(Item("${date[0]}-${date[1]}", toDo))
             }
-            viewModel.items.sortWith(compareBy { it.date })
+            //정렬 코드
+            viewModel.items.sortWith(compareBy<Item> { it.date[0].code }
+                .thenBy { it.date[1].code }
+                .thenBy { it.date[3].code }
+                .thenBy { it.date[4].code })
         }
-
         // 메인 스레드 join
         runBlocking {
             job.join()
@@ -71,7 +75,6 @@ class TodayFragment : Fragment() {
             ItemDialog(it).show(requireActivity().supportFragmentManager, "ItemDialog")
         }
         registerForContextMenu(recyclerView)
-
         return binding.root
     }
     override fun onCreateContextMenu(
