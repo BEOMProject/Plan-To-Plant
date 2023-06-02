@@ -1,6 +1,5 @@
 package com.example.plantoplant.navigation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plantoplant.CalenderAdapter
 import com.example.plantoplant.R
-import com.example.plantoplant.ToDoMonths
 import com.example.plantoplant.util.ServerCon
 import kotlinx.coroutines.*
 import org.json.JSONArray
@@ -37,14 +34,14 @@ class CalenderFragment : Fragment() {
     private lateinit var plusmonth : ImageButton
     private lateinit var selectedDate: LocalDate //년월   변수
     private lateinit var monthYearText: TextView
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var calendarRecyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_calendar, container, false)
         selectedDate = LocalDate.now() //현재 날짜
 
         monthYearText = view.findViewById(R.id.monthYearText)
-        recyclerView = view.findViewById(R.id.recyclerView)
+        calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView)
 
         setMonthView() //화면 설정
         //이전달 버튼
@@ -68,6 +65,7 @@ class CalenderFragment : Fragment() {
     private fun setMonthView() {
         monthYearText.text = monthYearFromDate(selectedDate) //년월 텍스트뷰
         userId = arguments?.getString("email") ?: "" // 유저 아이디
+        val dayList = dayInMonthArray(selectedDate)
 
         val year = selectedDate.year
         val month = selectedDate.month.value
@@ -85,16 +83,9 @@ class CalenderFragment : Fragment() {
             job.cancel()
         }
 
-        //날짜 생성, 리스트 담기
-        val dayList = dayInMonthArray(selectedDate)
-        //어댑터 초기화
-        val adapter = CalenderAdapter(dayList, toDoArray, requireContext())
-        //레이아웃 설정(열 7개)
-        val manager: RecyclerView.LayoutManager = GridLayoutManager(requireContext(), 7)
-        //레이아웃 적용
-        recyclerView.layoutManager = manager
-        //어댑터 적용
-        recyclerView.adapter = adapter
+        // 날짜 생성
+        calendarRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
+        calendarRecyclerView.adapter = CalenderAdapter(dayList, toDoArray, requireContext())
     }
     //날짜 타입 설정
     private fun monthYearFromDate(date: LocalDate): String{
@@ -162,8 +153,6 @@ class CalenderFragment : Fragment() {
             }
 
             response = stringBuilder.toString()
-
-            println(response)
         } catch (e: MalformedURLException) {
             e.printStackTrace()
         } catch (e: IOException) {
