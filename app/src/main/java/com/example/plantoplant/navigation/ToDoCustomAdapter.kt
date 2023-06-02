@@ -47,9 +47,11 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
         val viewHolder = ViewHolder(view)
+
         view.setOnClickListener{
             viewModel.itemClickEvent.value = viewHolder.adapterPosition
         }
+
         view.setOnLongClickListener {
             viewModel.itemLongClick = viewHolder.adapterPosition
             false
