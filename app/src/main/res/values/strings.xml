@@ -60,6 +60,20 @@
     <string name="page">페이지</string>
     <string name="todo">ToDo</string>
     <string name="today_title">꽃밭</string>
+    <string name="cherryBlossom">벚꽃</string>
+    <string name="forsythia">개나리</string>
+    <string name="fishbread">붕어빵꽃</string>
+    <string name="tulip">튤립</string>
+    <string name="cherryBlossomInfo">벚꽃은 벚나무의 꽃이다. 봄에 화창하게 피는 분홍색, 또는 하얀색 꽃잎이 일반적이다. 꽃말은 대표적으로 아름다운 정신(영혼), 정신적 사랑, 삶의 아름다움이다.
+
+그 외에도 절세미인, 삶의 덧없음과 아름다움, 순결, 뛰어난 아름다움, 정신미, 교양, 부(富), 그리고 번영을 뜻한다. 학생인 경우 중간고사를 뜻한다고 하기도 한다
+
+벚꽃은 장미과 벚나무속(Prunus) 벚나무아속(subg. Japanese cherry) 벚나무절(sect. Cerasus) 식물의 꽃이다. 특히 동아시아의 벚나무 종의 나무에서 피는 꽃을 말한다. 히말라야 지역이 원산이라는 이야기도 있으며, 현재는 일본, 중국, 북한, 한국, 네팔, 대만, 이란, 미국 등 북반구의 온대지역 전역에서 핀다.</string>
+    <string name="forsythiaInfo">개나리는 물푸레나무과 식물로, 봄철에 노란 꽃을 피우는 떨기나무의 한 종류이다.</string>
+    <string name="fishbreadInfo">개발자가 좋아하는 간식이다</string>
+    <string name="tulipInfo">튤립</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
