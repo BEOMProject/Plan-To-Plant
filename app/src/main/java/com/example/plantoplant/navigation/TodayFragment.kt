@@ -1,6 +1,7 @@
 package com.example.plantoplant.navigation
 
 import android.annotation.SuppressLint
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
@@ -20,19 +21,17 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.time.LocalDate
 
 class TodayFragment : Fragment() {
     //private val viewModel by viewModels<ToDoViewModel>()
     private lateinit var viewModel: ToDoViewModel
     private var toDoId: Int = 0
     @SuppressLint("NotifyDataSetChanged")
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // setting
         val binding = FragmentTodayBinding.inflate(inflater, container, false)
-        val recyclerView = binding.recyclerView
+        val recyclerView = binding.todayRecyclerView
         val userId = arguments?.getString("email") ?: ""
         viewModel = ViewModelProvider(this)[ToDoViewModel::class.java]
         val adapter = ToDoCustomAdapter(viewModel)
@@ -46,13 +45,17 @@ class TodayFragment : Fragment() {
             val jsons = JSONTokener(response).nextValue() as JSONArray
             for (i in 0 until jsons.length()) {
                 viewModel.ids.add(jsons.getJSONObject(i).getInt("id"))
-                val date = jsons.getJSONObject(i).getString("date").split("-")
+                val date = jsons.getJSONObject(i).getString("date").split("-") as ArrayList<String>
+                date.removeAt(0)
                 val toDo = jsons.getJSONObject(i).getString("toDo")
-                viewModel.items.add(Item("${date[1]}-${date[2]}", toDo))
+                viewModel.items.add(Item("${date[0]}-${date[1]}", toDo))
             }
-            viewModel.items.sortWith(compareBy({it.date[1]}, {it.date[2]}))
+            //정렬 코드
+            viewModel.items.sortWith(compareBy<Item> { it.date[0].code }
+                .thenBy { it.date[1].code }
+                .thenBy { it.date[3].code }
+                .thenBy { it.date[4].code })
         }
-
         // 메인 스레드 join
         runBlocking {
             job.join()
@@ -67,7 +70,6 @@ class TodayFragment : Fragment() {
             ItemDialog(it).show(requireActivity().supportFragmentManager, "ItemDialog")
         }
         registerForContextMenu(recyclerView)
-
         return binding.root
     }
     override fun onCreateContextMenu(
@@ -81,6 +83,7 @@ class TodayFragment : Fragment() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+            // 일정 삭제 구현
             R.id.delete -> {
                 val idx = viewModel.itemLongClick
                 viewModel.items.removeAt(idx)
@@ -88,6 +91,7 @@ class TodayFragment : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     deletePlanData()
                 }
+                viewModel.ids.removeAt(idx)
                 viewModel.itemsListData.value = viewModel.items
             }
             R.id.edit -> {
@@ -165,7 +169,7 @@ class TodayFragment : Fragment() {
                     Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 }
                 else
-                    Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "오류발생!", Toast.LENGTH_SHORT).show()
             }
         } catch (e: MalformedURLException) {
             e.printStackTrace()
@@ -173,5 +177,4 @@ class TodayFragment : Fragment() {
             e.printStackTrace()
         }
     }
-
 }
