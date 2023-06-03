@@ -93,7 +93,6 @@ class AddPlanFragment : Fragment() {
 
         addPlanButton = view.findViewById(R.id.addplanButton)
         addPlanButton.setOnClickListener {
-            // userId = arguments?.getString("email") ?: ""
             plan = addPlanTextView.text.toString()
             CoroutineScope(Dispatchers.IO).launch {
                 addPlanData()
