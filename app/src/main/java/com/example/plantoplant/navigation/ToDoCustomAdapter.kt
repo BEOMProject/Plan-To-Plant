@@ -1,5 +1,6 @@
 package com.example.plantoplant.navigation
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStreamReader
+import java.lang.Thread.State
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
@@ -34,10 +36,16 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
         fun setContents(pos: Int){
             val textView1 = view.findViewById<TextView>(R.id.textDate)
             val textView2 = view.findViewById<TextView>(R.id.textToDo)
+            val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
 
             with(viewModel.items[pos]){
                 textView1.text = date
                 textView2.text = toDo
+                checkBox.isChecked = toDoCompleted
+                if(checkBox.isChecked){
+                    textView1.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    textView2.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                }
             }
         }
     }
@@ -47,6 +55,9 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
         val viewHolder = ViewHolder(view)
+        val checkBox = view.findViewById<CheckBox>(R.id.checkBox)
+        val textDate = view.findViewById<TextView>(R.id.textDate)
+        val textToDo = view.findViewById<TextView>(R.id.textToDo)
 
         view.setOnClickListener{
             viewModel.itemClickEvent.value = viewHolder.adapterPosition
@@ -56,6 +67,25 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
             viewModel.itemLongClick = viewHolder.adapterPosition
             false
         }
+
+        checkBox.setOnClickListener{
+            viewModel.items[viewHolder.adapterPosition].toDoCompleted = checkBox.isChecked
+            viewModel.items.sortWith(compareBy<Item> {it.toDoCompleted}
+                .thenBy { it.date[0].code }
+                .thenBy { it.date[1].code }
+                .thenBy { it.date[3].code }
+                .thenBy { it.date[4].code })
+            if(!viewModel.items[viewHolder.adapterPosition].toDoCompleted){
+                textDate.paintFlags = 0
+                textToDo.paintFlags = 0
+            }
+            else{
+                textDate.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                textToDo.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            }
+            viewModel.checkBoxClickEvent.value = viewHolder.adapterPosition
+        }
+
         return viewHolder
     }
 
