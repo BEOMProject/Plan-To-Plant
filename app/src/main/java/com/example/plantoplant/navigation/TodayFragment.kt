@@ -102,9 +102,13 @@ class TodayFragment : Fragment() {
             toDo = itemArray.toDo
             toDoCompleted = itemArray.toDoCompleted
             CoroutineScope(Dispatchers.IO).launch {
-                updateData()
+                updateData(toDoId)
             }
-            viewModel.items.sortWith(compareBy{it.toDoCompleted})
+            viewModel.items.sortWith(compareBy<Item> {it.toDoCompleted}
+                .thenBy { it.date[0].code }
+                .thenBy { it.date[1].code }
+                .thenBy { it.date[3].code }
+                .thenBy { it.date[4].code })
             adapter.notifyDataSetChanged()
         }
 
@@ -129,7 +133,7 @@ class TodayFragment : Fragment() {
                 viewModel.items.removeAt(idx)
                 toDoId = viewModel.ids[idx]
                 CoroutineScope(Dispatchers.IO).launch {
-                    deletePlanData()
+                    deletePlanData(toDoId)
                 }
                 viewModel.ids.removeAt(idx)
                 viewModel.itemsListData.value = viewModel.items
@@ -173,7 +177,7 @@ class TodayFragment : Fragment() {
         return response
     }
 
-    private suspend fun deletePlanData(){
+    private suspend fun deletePlanData(toDoId: Int){
         try {
             val con = ServerCon()
             val url = URL(con.url + "todos/delete")
@@ -218,7 +222,7 @@ class TodayFragment : Fragment() {
         }
     }
 
-    private suspend fun updateData(){
+    private suspend fun updateData(toDoId: Int){
         try {
             val con = ServerCon()
             val url = URL(con.url + "todos/update")
