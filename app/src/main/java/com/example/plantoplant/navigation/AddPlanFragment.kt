@@ -94,7 +94,7 @@ class AddPlanFragment : Fragment() {
         addPlanButton = view.findViewById(R.id.addplanButton)
         addPlanButton.setOnClickListener {
             plan = addPlanTextView.text.toString()
-            if (plan != "") {
+            if (plan != "" && btnDatePicker.text != "날짜 선택하기") {
                 CoroutineScope(Dispatchers.IO).launch {
                     addPlanData()
                 }
