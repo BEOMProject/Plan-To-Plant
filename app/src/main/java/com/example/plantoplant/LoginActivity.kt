@@ -4,7 +4,6 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -25,7 +24,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var email: String
     private lateinit var password: String
-
     private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
