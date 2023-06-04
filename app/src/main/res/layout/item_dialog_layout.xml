@@ -12,12 +12,13 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/suit_medium"
         android:text="수정할 날짜 선택하기"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="14sp"
+        android:shape="rectangle"
+        android:backgroundTint="#334d40"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#334d40" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/editToDo_bg"
@@ -47,16 +48,34 @@
         app:layout_constraintStart_toStartOf="@+id/editToDo_bg"
         app:layout_constraintTop_toTopOf="@+id/editToDo_bg" />
 
+    <CheckBox
+        android:id="@+id/editToDoVisibilityCalender"
+        android:layout_width="168dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:buttonTint="#334D40"
+        android:fontFamily="@font/suit_medium"
+        android:text="@string/addOnCalendar"
+        android:textColor="@color/green5"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editToDo_bg" />
+
     <Button
         android:id="@+id/buttonOK"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#334d40"
+        android:shape="rectangle"
         android:text="수정하기"
+        android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editToDo" />
+        app:layout_constraintTop_toBottomOf="@+id/editToDoVisibilityCalender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
