@@ -5,10 +5,7 @@ import android.graphics.Paint
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.*
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +31,19 @@ class TodayFragment : Fragment() {
     private lateinit var toDo: String
     private var toDoCompleted: Boolean = false
 
+    private lateinit var sprout1: ImageView
+    private lateinit var sprout2: ImageView
+    private lateinit var sprout3: ImageView
+    private lateinit var sprout4: ImageView
+    private lateinit var sprout5: ImageView
+    private lateinit var plant1: ImageView
+    private lateinit var plant2: ImageView
+    private lateinit var plant3: ImageView
+    private lateinit var plant4: ImageView
+    private lateinit var plant5: ImageView
+    var countTodo: Int = 0
+    var countCompletedTodo: Int = 0
+
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // setting
@@ -48,10 +58,22 @@ class TodayFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
+        sprout1 = binding.todaySprout1
+        sprout2 = binding.todaySprout2
+        sprout3 = binding.todaySprout3
+        sprout4 = binding.todaySprout4
+        sprout5 = binding.todaySprout5
+        plant1 = binding.todayPlant1
+        plant2 = binding.todayPlant2
+        plant3 = binding.todayPlant3
+        plant4 = binding.todayPlant4
+        plant5 = binding.todayPlant5
+
         // viewModel 데이터 추가를 위한 스레드
         val job = CoroutineScope(Dispatchers.IO).launch {
             val response = makeToDoResponse(userId)
             val jsons = JSONTokener(response).nextValue() as JSONArray
+            countTodo = jsons.length()
             for (i in 0 until jsons.length()) {
                 // 할 일 아이디
                 viewModel.ids.add(jsons.getJSONObject(i).getInt("id"))
@@ -68,7 +90,101 @@ class TodayFragment : Fragment() {
                 if(toDoCompleted){
                     textView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 }
+                val CompletedValue = jsons.getJSONObject(i).getBoolean("toDoCompleted")
+                if (CompletedValue) {
+                    countCompletedTodo += 1
+                }
                 viewModel.items.add(Item(toDoId,"${date[0]}-${date[1]}", toDo, toDoCompleted))
+            }
+            println("할일 목록 : $countTodo")
+            when(countTodo) {
+                0 -> {
+                    sprout1.visibility = View.INVISIBLE
+                    sprout2.visibility = View.INVISIBLE
+                    sprout3.visibility = View.INVISIBLE
+                    sprout4.visibility = View.INVISIBLE
+                    sprout5.visibility = View.INVISIBLE
+                }
+                1 -> {
+                    sprout1.visibility = View.VISIBLE
+                    sprout2.visibility = View.INVISIBLE
+                    sprout3.visibility = View.INVISIBLE
+                    sprout4.visibility = View.INVISIBLE
+                    sprout5.visibility = View.INVISIBLE
+                }
+                2 -> {
+                    sprout1.visibility = View.VISIBLE
+                    sprout2.visibility = View.VISIBLE
+                    sprout3.visibility = View.INVISIBLE
+                    sprout4.visibility = View.INVISIBLE
+                    sprout5.visibility = View.INVISIBLE
+                }
+                3 -> {
+                    sprout1.visibility = View.VISIBLE
+                    sprout2.visibility = View.VISIBLE
+                    sprout3.visibility = View.VISIBLE
+                    sprout4.visibility = View.INVISIBLE
+                    sprout5.visibility = View.INVISIBLE
+                }
+                4 -> {
+                    sprout1.visibility = View.VISIBLE
+                    sprout2.visibility = View.VISIBLE
+                    sprout3.visibility = View.VISIBLE
+                    sprout4.visibility = View.VISIBLE
+                    sprout5.visibility = View.INVISIBLE
+                }
+                else -> {
+                    sprout1.visibility = View.VISIBLE
+                    sprout2.visibility = View.VISIBLE
+                    sprout3.visibility = View.VISIBLE
+                    sprout4.visibility = View.VISIBLE
+                    sprout5.visibility = View.VISIBLE
+                }
+            }
+
+            println("완료한 일 : $countCompletedTodo")
+            when (countCompletedTodo) { // 여기에 완료된 일정 (체크된 체크박스 수 count 넣으면 끝)
+                1 -> {
+                    sprout1.visibility = View.INVISIBLE
+                    plant1.visibility = View.VISIBLE
+                }
+                2 -> {
+                    sprout1.visibility = View.INVISIBLE
+                    plant1.visibility = View.VISIBLE
+                    sprout2.visibility = View.INVISIBLE
+                    plant2.visibility = View.VISIBLE
+
+                }
+                3 -> {
+                    sprout1.visibility = View.INVISIBLE
+                    plant1.visibility = View.VISIBLE
+                    sprout2.visibility = View.INVISIBLE
+                    plant2.visibility = View.VISIBLE
+                    sprout3.visibility = View.INVISIBLE
+                    plant3.visibility = View.VISIBLE
+                }
+                4 -> {
+                    sprout1.visibility = View.INVISIBLE
+                    plant1.visibility = View.VISIBLE
+                    sprout2.visibility = View.INVISIBLE
+                    plant2.visibility = View.VISIBLE
+                    sprout3.visibility = View.INVISIBLE
+                    plant3.visibility = View.VISIBLE
+                    sprout4.visibility = View.INVISIBLE
+                    plant4.visibility = View.VISIBLE
+                }
+                5 -> {
+                    sprout1.visibility = View.INVISIBLE
+                    plant1.visibility = View.VISIBLE
+                    sprout2.visibility = View.INVISIBLE
+                    plant2.visibility = View.VISIBLE
+                    sprout3.visibility = View.INVISIBLE
+                    plant3.visibility = View.VISIBLE
+                    sprout4.visibility = View.INVISIBLE
+                    plant4.visibility = View.VISIBLE
+                    sprout5.visibility = View.INVISIBLE
+                    plant5.visibility = View.VISIBLE
+                }
             }
             //정렬 코드
             viewModel.items.sortWith(compareBy<Item> {it.toDoCompleted}
@@ -78,6 +194,7 @@ class TodayFragment : Fragment() {
                 .thenBy { it.date[4].code })
 
         }
+
         // 메인 스레드 join
         runBlocking {
             job.join()

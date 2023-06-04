@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/todayTitle"
@@ -20,17 +21,124 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/plantBackGround"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="103dp"
-        android:layout_marginTop="124dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/todayTitle"
-        app:srcCompat="@drawable/today_background" />
+        android:layout_height="200dp">
 
+        <ImageView
+            android:id="@+id/plantBackGround"
+            android:layout_width="match_parent"
+            android:layout_height="103dp"
+            android:layout_marginTop="124dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/todayTitle"
+            app:srcCompat="@drawable/today_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="57dp"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/todaySprout1"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_sprout1" />
+
+                <ImageView
+                    android:id="@+id/todayPlant1"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_plant1" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="57dp"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/todaySprout2"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_sprout2" />
+
+                <ImageView
+                    android:id="@+id/todayPlant2"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_plant2" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="57dp"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/todaySprout3"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_sprout3" />
+
+                <ImageView
+                    android:id="@+id/todayPlant3"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_plant3" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="57dp"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/todaySprout4"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_sprout4" />
+
+                <ImageView
+                    android:id="@+id/todayPlant4"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_plant4" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="57dp"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/todaySprout5"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_sprout5" />
+
+                <ImageView
+                    android:id="@+id/todayPlant5"
+                    android:layout_width="50dp"
+                    android:layout_height="236dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/today_plant5" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/ToDoTitle"
@@ -59,5 +167,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/todayRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
+
 </LinearLayout>
