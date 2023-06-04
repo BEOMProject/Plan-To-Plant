@@ -70,11 +70,6 @@ class ToDoCustomAdapter(private val viewModel: ToDoViewModel): RecyclerView.Adap
 
         checkBox.setOnClickListener{
             viewModel.items[viewHolder.adapterPosition].toDoCompleted = checkBox.isChecked
-            viewModel.items.sortWith(compareBy<Item> {it.toDoCompleted}
-                .thenBy { it.date[0].code }
-                .thenBy { it.date[1].code }
-                .thenBy { it.date[3].code }
-                .thenBy { it.date[4].code })
             if(!viewModel.items[viewHolder.adapterPosition].toDoCompleted){
                 textDate.paintFlags = 0
                 textToDo.paintFlags = 0
