@@ -94,8 +94,16 @@ class AddPlanFragment : Fragment() {
         addPlanButton = view.findViewById(R.id.addplanButton)
         addPlanButton.setOnClickListener {
             plan = addPlanTextView.text.toString()
-            CoroutineScope(Dispatchers.IO).launch {
-                addPlanData()
+            if (plan != "" && btnDatePicker.text != "날짜 선택하기") {
+                CoroutineScope(Dispatchers.IO).launch {
+                    addPlanData()
+                }
+            }
+            else if (btnDatePicker.text == "날짜 선택하기") {
+                Toast.makeText(context, "날짜를 선택해주세요.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(context, "할 일을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
