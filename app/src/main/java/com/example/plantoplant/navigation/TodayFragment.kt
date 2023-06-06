@@ -98,9 +98,10 @@ class TodayFragment : Fragment() {
                 }
                 if (localDate == currentDate) { // 오늘 날짜와 같은 할 일인 경우
                     countTodo += 1 // 오늘 날짜와 같은 할 일 목록 개수 증가
-
-                    val CompletedValue = jsons.getJSONObject(i).getBoolean("toDoCompleted")
-                    if (CompletedValue) {
+                }
+                val CompletedValue = jsons.getJSONObject(i).getBoolean("toDoCompleted")
+                if (CompletedValue) {
+                    if (localDate == currentDate) {
                         countCompletedTodo += 1 // 완료된 할 일 목록 개수 증가
                     }
                 }
