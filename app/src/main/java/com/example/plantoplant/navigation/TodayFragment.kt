@@ -41,11 +41,13 @@ class TodayFragment : Fragment() {
     private lateinit var plant3: ImageView
     private lateinit var plant4: ImageView
     private lateinit var plant5: ImageView
-    var countTodo: Int = 0
-    var countCompletedTodo: Int = 0
 
     @SuppressLint("NotifyDataSetChanged", "ResourceType")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // setting
         val binding = FragmentTodayBinding.inflate(inflater, container, false)
         val recyclerView = binding.todayRecyclerView
@@ -73,7 +75,11 @@ class TodayFragment : Fragment() {
         val job = CoroutineScope(Dispatchers.IO).launch {
             val response = makeToDoResponse(userId)
             val jsons = JSONTokener(response).nextValue() as JSONArray
-            countTodo = jsons.length()
+            var countTodo: Int = 0
+            var countCompletedTodo: Int = 0
+
+            val currentDate = LocalDate.now() // 현재 날짜
+
             for (i in 0 until jsons.length()) {
                 // 할 일 아이디
                 viewModel.ids.add(jsons.getJSONObject(i).getInt("id"))
@@ -87,17 +93,23 @@ class TodayFragment : Fragment() {
                 toDo = jsons.getJSONObject(i).getString("toDo")
                 // 할 일 완료 여부
                 toDoCompleted = jsons.getJSONObject(i).getBoolean("toDoCompleted")
-                if(toDoCompleted){
+                if (toDoCompleted) {
                     textView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                }
+                if (localDate == currentDate) { // 오늘 날짜와 같은 할 일인 경우
+                    countTodo += 1 // 오늘 날짜와 같은 할 일 목록 개수 증가
                 }
                 val CompletedValue = jsons.getJSONObject(i).getBoolean("toDoCompleted")
                 if (CompletedValue) {
-                    countCompletedTodo += 1
+                    if (localDate == currentDate) {
+                        countCompletedTodo += 1 // 완료된 할 일 목록 개수 증가
+                    }
                 }
-                viewModel.items.add(Item(toDoId,"${date[0]}-${date[1]}", toDo, toDoCompleted))
+                viewModel.items.add(Item(toDoId, "${date[0]}-${date[1]}", toDo, toDoCompleted))
             }
+
             println("할일 목록 : $countTodo")
-            when(countTodo) {
+            when (countTodo) {
                 0 -> {
                     sprout1.visibility = View.INVISIBLE
                     sprout2.visibility = View.INVISIBLE
@@ -143,7 +155,7 @@ class TodayFragment : Fragment() {
             }
 
             println("완료한 일 : $countCompletedTodo")
-            when (countCompletedTodo) { // 여기에 완료된 일정 (체크된 체크박스 수 count 넣으면 끝)
+            when (countCompletedTodo) {
                 1 -> {
                     sprout1.visibility = View.INVISIBLE
                     plant1.visibility = View.VISIBLE
@@ -187,12 +199,11 @@ class TodayFragment : Fragment() {
                 }
             }
             //정렬 코드
-            viewModel.items.sortWith(compareBy<Item> {it.toDoCompleted}
+            viewModel.items.sortWith(compareBy<Item> { it.toDoCompleted }
                 .thenBy { it.date[0].code }
                 .thenBy { it.date[1].code }
                 .thenBy { it.date[3].code }
                 .thenBy { it.date[4].code })
-
         }
 
         // 메인 스레드 join
@@ -209,7 +220,7 @@ class TodayFragment : Fragment() {
             ItemDialog(it).show(requireActivity().supportFragmentManager, "ItemDialog")
         }
 
-        viewModel.checkBoxClickEvent.observe(viewLifecycleOwner){
+        viewModel.checkBoxClickEvent.observe(viewLifecycleOwner) {
             val idx = viewModel.checkBoxClickEvent.value!!
             val year = LocalDate.now().year
             val itemArray = viewModel.items[idx]
@@ -221,7 +232,7 @@ class TodayFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 updateData(toDoId)
             }
-            viewModel.items.sortWith(compareBy<Item> {it.toDoCompleted}
+            viewModel.items.sortWith(compareBy<Item> { it.toDoCompleted }
                 .thenBy { it.date[0].code }
                 .thenBy { it.date[1].code }
                 .thenBy { it.date[3].code }
@@ -243,7 +254,7 @@ class TodayFragment : Fragment() {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             // 일정 삭제 구현
             R.id.delete -> {
                 val idx = viewModel.itemLongClick
@@ -283,18 +294,17 @@ class TodayFragment : Fragment() {
                 stringBuilder.append(line)
             }
             response = stringBuilder.toString()
-        }
-        catch (e: MalformedURLException){
+        } catch (e: MalformedURLException) {
             e.printStackTrace()
-        } catch (e: IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
-        } catch(e: FileNotFoundException){
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
         }
         return response
     }
 
-    private suspend fun deletePlanData(toDoId: Int){
+    private suspend fun deletePlanData(toDoId: Int) {
         try {
             val con = ServerCon()
             val url = URL(con.url + "todos/delete")
@@ -325,11 +335,10 @@ class TodayFragment : Fragment() {
 
             val response = stringBuilder.toString()
 
-            withContext(Dispatchers.Main){
-                if(response == "1\n") {
+            withContext(Dispatchers.Main) {
+                if (response == "1\n") {
                     Toast.makeText(requireContext(), "일정이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-                else
+                } else
                     Toast.makeText(requireContext(), "오류발생!", Toast.LENGTH_SHORT).show()
             }
         } catch (e: MalformedURLException) {
@@ -339,7 +348,7 @@ class TodayFragment : Fragment() {
         }
     }
 
-    private suspend fun updateData(toDoId: Int){
+    private suspend fun updateData(toDoId: Int) {
         try {
             val con = ServerCon()
             val url = URL(con.url + "todos/update")
@@ -375,8 +384,8 @@ class TodayFragment : Fragment() {
 
             val response = stringBuilder.toString()
 
-            withContext(Dispatchers.Main){
-                if(response != "1\n") {
+            withContext(Dispatchers.Main) {
+                if (response != "1\n") {
                     Toast.makeText(requireContext(), "오류 발생!", Toast.LENGTH_SHORT).show()
                 }
             }
